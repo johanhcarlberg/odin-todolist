@@ -27,4 +27,4 @@ function getNextId() {
     }).id + 1;
 }
 
-export { addTodoItem, getTodoItems };
+export { addTodoItem, getTodoItems, getTodoItemById };
