@@ -4,5 +4,6 @@ export class TodoItem {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
+        this.isComplete = false;
     }
 }

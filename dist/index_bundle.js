@@ -1,1 +1,1 @@
-console.log("TodoList app loaded");
+(()=>{"use strict";class t{constructor(t,s,e,i){this.id=t,this.title=s,this.description=e,this.dueDate=i}}const s=[];function e(e,i,o){const c=0===s.length?1:s.reduce(((t,s)=>t.id<s.value?s:t)).id+1,n=new t(c,e,i,o);return s.push(n),n}console.log("TodoList app loaded"),e("Test","Test Description","2022-12-29"),e("Test2","Test Description 2","2022-12-30"),console.table(s)})();
