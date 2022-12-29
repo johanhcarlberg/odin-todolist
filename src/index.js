@@ -1,4 +1,4 @@
-import { addTodoItem, getTodoItems } from './modules/TodoItem/TodoItemController';
+import { addTodoItem, getTodoItemById, getTodoItems } from './modules/TodoItem/TodoItemController';
 import * as TodoItemDetail from './modules/TodoItem/TodoItemDetail';
 console.log('TodoList app loaded');
 addTodoItem("Test", "Test Description", "2022-12-29");
@@ -9,4 +9,4 @@ const mainContent = document.createElement('div');
 mainContent.classList.add('main-content');
 document.body.appendChild(mainContent);
 
-mainContent.appendChild(TodoItemDetail.render(1));
+mainContent.appendChild(TodoItemDetail.render(getTodoItemById(1)));

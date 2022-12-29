@@ -1,11 +1,6 @@
 import { getTodoItemById } from "./TodoItemController";
 
-export function render(id) {
-    const todoItem = getTodoItemById(id);
-    if (!todoItem) {
-        throw `Couldn't find todoItem with id=${id}`;
-    }
-
+export function render(todoItem) {
     const todoItemDiv = document.createElement('div');
 
     const todoItemHeader = document.createElement('h2');
