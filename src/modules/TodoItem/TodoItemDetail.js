@@ -11,11 +11,21 @@ class TodoItemDetail {
         todoItemHeader.textContent = todoItem.title;
     
         const todoItemContent = document.createElement('div');
+        const descriptionDiv = document.createElement('div');
+        descriptionDiv.textContent = todoItem.description;
+        todoItemContent.appendChild(descriptionDiv);
+
+        const dueDateDiv = document.createElement('div');
+        dueDateDiv.textContent = todoItem.dueDate;
+        todoItemContent.appendChild(dueDateDiv);
+
+        const isCompleteDiv = document.createElement('div');
+        isCompleteDiv.textContent = todoItem.isComplete;
+        todoItemContent.appendChild(isCompleteDiv);
         
     
         todoItemDiv.appendChild(todoItemHeader);
         todoItemDiv.appendChild(todoItemContent);
-        console.log(todoItem);
     
         return todoItemDiv;
     }

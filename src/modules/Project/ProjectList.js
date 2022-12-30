@@ -12,10 +12,16 @@ class ProjectList {
         projectList.classList.add('project-list');
     
         for (let project of projects) {
+
             const projectListItem = document.createElement('li');
             projectListItem.classList.add('project-list-item');
+
+            const projectLink = document.createElement('a');
+            projectLink.href="#";
+            projectLink.textContent = project.name;
+            projectLink.addEventListener('click', (e) => this.onProjectLinkClick(e, project.name));
     
-            projectListItem.textContent = project.name;
+            projectListItem.appendChild(projectLink);
             projectList.appendChild(projectListItem);
         }
         
@@ -23,6 +29,11 @@ class ProjectList {
         projectListContainerDiv.appendChild(projectList);
     
         return projectListContainerDiv;
+    }
+
+    onProjectLinkClick(e, projectName) {
+        e.preventDefault();
+        console.log(projectName);
     }
 }
 
