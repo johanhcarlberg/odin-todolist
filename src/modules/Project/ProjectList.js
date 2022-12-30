@@ -1,4 +1,5 @@
 import { getProjects } from "./ProjectController";
+import PubSub from "../PubSub";
 class ProjectList {
     render() {
         const projects = getProjects();
@@ -19,7 +20,7 @@ class ProjectList {
             const projectLink = document.createElement('a');
             projectLink.href="#";
             projectLink.textContent = project.name;
-            projectLink.addEventListener('click', (e) => this.onProjectLinkClick(e, project.name));
+            projectLink.addEventListener('click', (e) => this.onProjectLinkClick(e, project));
     
             projectListItem.appendChild(projectLink);
             projectList.appendChild(projectListItem);
@@ -31,9 +32,13 @@ class ProjectList {
         return projectListContainerDiv;
     }
 
-    onProjectLinkClick(e, projectName) {
+    onProjectLinkClick(e, project) {
         e.preventDefault();
-        console.log(projectName);
+        console.log({project});
+        PubSub.publish('changePage', {
+            page: 'ProjectDetail',
+            data: 1,
+        })
     }
 }
 

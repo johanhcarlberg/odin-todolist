@@ -1,3 +1,4 @@
+import PubSub from './modules/PubSub';
 import { addTodoItem, getTodoItemById, getTodoItems } from './modules/TodoItem/TodoItemController';
 import TodoItemDetail from './modules/TodoItem/TodoItemDetail';
 import ProjectList from './modules/Project/ProjectList';
@@ -11,21 +12,25 @@ const pages = {
     "ProjectList": ProjectList,
 }
 
+PubSub.subscribe('changePage', changePage);
+
 const mainContent = document.createElement('div');
 mainContent.classList.add('main-content');
 document.body.appendChild(mainContent);
 
-function changePage(page, data) {
-    console.log({page, data});
-    if (!page) {
+function changePage(data) {
+    console.log(data);
+    if (!data.page || !pages[data.page]) {
         return;
     }
 
     mainContent.innerHTML = "";
-    mainContent.appendChild(page.render(data));
+    mainContent.appendChild(pages[data.page].render(data.data));
 }
 
-changePage(ProjectList);
+changePage({
+    page: "ProjectList"
+});
 //changePage(TodoItemDetail, 1);
 
 
