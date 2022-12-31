@@ -2,6 +2,7 @@ import PubSub from './modules/PubSub';
 import { addTodoItem, getTodoItemById, getTodoItems } from './modules/TodoItem/TodoItemController';
 import TodoItemDetail from './modules/TodoItem/TodoItemDetail';
 import ProjectList from './modules/Project/ProjectList';
+import Header from './modules/Layout/header';
 console.log('TodoList app loaded');
 addTodoItem("Test", "Test Description", "2022-12-29");
 addTodoItem("Test2", "Test Description 2", "2022-12-30");
@@ -14,6 +15,7 @@ const pages = {
 
 PubSub.subscribe('changePage', changePage);
 
+document.body.appendChild(Header.render());
 const mainContent = document.createElement('div');
 mainContent.classList.add('main-content');
 document.body.appendChild(mainContent);
