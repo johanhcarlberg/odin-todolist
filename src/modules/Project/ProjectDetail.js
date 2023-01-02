@@ -1,10 +1,11 @@
-import { getTodoItemsForProject } from "../ProjectTodoItemMediator";
+import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
+import { publishLink } from "../util";
 import { getProjectById } from "./ProjectController";
 
 class ProjectDetail {
     render(id) {
         const project = getProjectById(id);
-        const todoItems = getTodoItemsForProject(id);
+        const todoItems = ProjectTodoItemMediator.getTodoItemsForProject(id);
         console.table(todoItems);
         const projectDetailDiv = document.createElement('div');
         projectDetailDiv.classList.add('project-detail');
@@ -20,9 +21,16 @@ class ProjectDetail {
             const todoItemDiv = document.createElement('div');
             todoItemDiv.classList.add('todo-item');
 
+            const todoItemLink = document.createElement('a');
+            todoItemLink.href = '#';
+            todoItemLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                publishLink('TodoItemDetail', todoItem.id);
+            })
             const todoItemHeader = document.createElement('h3');
             todoItemHeader.textContent = todoItem.title;
-            todoItemDiv.appendChild(todoItemHeader);
+            todoItemLink.appendChild(todoItemHeader);
+            todoItemDiv.appendChild(todoItemLink);
 
             const todoItemDueDateDiv = document.createElement('div');
             todoItemDueDateDiv.textContent = `Due date: ${todoItem.dueDate}`;

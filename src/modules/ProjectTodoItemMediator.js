@@ -1,5 +1,16 @@
 import { getTodoItems } from "./TodoItem/TodoItemController";
+import { getProjectById } from "./Project/ProjectController";
 
-export function getTodoItemsForProject(projectId) {
-    return getTodoItems().filter(item => item.projectId === projectId);
+
+class ProjectTodoItemMediator {
+    getProjectById(id) {
+        return getProjectById(id);
+    }
+
+    getTodoItemsForProject(projectId) {
+        return getTodoItems().filter(item => item.projectId === projectId);
+    }
 }
+
+export default new ProjectTodoItemMediator();
+

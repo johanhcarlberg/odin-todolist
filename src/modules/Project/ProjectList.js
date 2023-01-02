@@ -1,5 +1,5 @@
 import { getProjects } from "./ProjectController";
-import PubSub from "../PubSub";
+import { publishLink } from "../util";
 class ProjectList {
     render() {
         const projects = getProjects();
@@ -35,10 +35,7 @@ class ProjectList {
     onProjectLinkClick(e, project) {
         e.preventDefault();
         console.log({project});
-        PubSub.publish('changePage', {
-            page: 'ProjectDetail',
-            data: 1,
-        })
+        publishLink('ProjectDetail', 1);
     }
 }
 
