@@ -1,5 +1,6 @@
 import { TodoItem } from "./TodoItem";
 import { getNextId } from "../util";
+import PubSub from "../PubSub";
 
 const todoItems = [];
 
@@ -18,4 +19,12 @@ function getTodoItemById(id) {
     return todoItems.find(item => item.id === id);
 }
 
-export { addTodoItem, getTodoItems, getTodoItemById };
+function getIndexFromId(id) {
+    return todoItems.findIndex(item => item.id === id);
+}
+
+function deleteTodoItem(id) {
+    todoItems.splice(getIndexFromId(id), 1);
+}
+
+export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem };

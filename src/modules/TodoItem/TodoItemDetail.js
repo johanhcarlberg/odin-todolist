@@ -1,6 +1,7 @@
-import { getTodoItemById } from "./TodoItemController";
+import { deleteTodoItem, getTodoItemById } from "./TodoItemController";
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { publishLink } from "../util";
+import PubSub from "../PubSub";
 class TodoItemDetail {
     render(id) {
         const todoItem = getTodoItemById(id);
@@ -24,7 +25,7 @@ class TodoItemDetail {
             e.preventDefault();
             publishLink('ProjectDetail', project.id)
         });
-        
+
         projectDiv.appendChild(projectLink);
         todoItemContent.appendChild(projectDiv);
 
@@ -39,6 +40,15 @@ class TodoItemDetail {
         const isCompleteDiv = document.createElement('div');
         isCompleteDiv.textContent = todoItem.isComplete;
         todoItemContent.appendChild(isCompleteDiv);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', (e) => {
+            deleteTodoItem(todoItem.id);
+            PubSub.publish('changePage', {page: 'ProjectDetail', data: project.id});
+        });
+        todoItemContent.appendChild(deleteButton);
         
     
         todoItemDiv.appendChild(todoItemHeader);
