@@ -3,6 +3,7 @@ import { addTodoItem, getTodoItemById, getTodoItems } from './modules/TodoItem/T
 import TodoItemDetail from './modules/TodoItem/TodoItemDetail';
 import ProjectList from './modules/Project/ProjectList';
 import Header from './modules/Layout/header';
+import ProjectDetail from './modules/Project/ProjectDetail';
 console.log('TodoList app loaded');
 addTodoItem("Test", "Test Description", "2022-12-29");
 addTodoItem("Test2", "Test Description 2", "2022-12-30");
@@ -11,6 +12,7 @@ console.table(getTodoItems());
 const pages = {
     "TodoItemDetail": TodoItemDetail,
     "ProjectList": ProjectList,
+    "ProjectDetail":ProjectDetail,
 }
 
 PubSub.subscribe('changePage', changePage);
