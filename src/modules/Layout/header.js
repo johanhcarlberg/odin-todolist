@@ -18,7 +18,7 @@ class Header {
             listItemLink.textContent = page.name;
             listItemLink.addEventListener('click', (e) => this.onHeaderLinkClick(e, page));
             listItem.appendChild(listItemLink);
-            
+
             links.appendChild(listItem);
         }
         nav.appendChild(links);
@@ -29,7 +29,7 @@ class Header {
 
     onHeaderLinkClick(e, newPage) {
         e.preventDefault();
-        PubSub.publish('changePage', newPage.page);
+        PubSub.publish('changePage', {page: newPage.page});
     }
 }
 
