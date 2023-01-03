@@ -28,8 +28,7 @@ class Header {
         const addTodoButton = document.createElement('button');
         addTodoButton.classList.add('add-todo-button');
         addTodoButton.textContent = "Add Todo Item";
-        addTodoButton.addEventListener('click', publishLink('AddTodoItem'));
-
+        addTodoButton.addEventListener('click', (e) => { publishLink('AddTodoItem')});
         header.appendChild(nav);
         header.appendChild(addTodoButton);
         return header;
