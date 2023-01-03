@@ -1,0 +1,39 @@
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.add-todo-button {
+    justify-self: end;
+    grid-column: 2;
+    grid-row: 1;
+    margin-right: 4rem;
+    border: none;
+    padding: 10px 30px;
+    background-color: #0099ff;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.add-todo-button:hover {
+    cursor: pointer;
+    background-color: #37afff;
+}
+
+nav {
+    justify-self: start;
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 2rem;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+}

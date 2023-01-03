@@ -1,4 +1,6 @@
 import PubSub from "../PubSub";
+import { publishLink } from "../util";
+import './style.css';
 
 class Header {
     pageLinks = [
@@ -23,7 +25,13 @@ class Header {
         }
         nav.appendChild(links);
 
+        const addTodoButton = document.createElement('button');
+        addTodoButton.classList.add('add-todo-button');
+        addTodoButton.textContent = "Add Todo Item";
+        addTodoButton.addEventListener('click', publishLink('AddTodoItem'));
+
         header.appendChild(nav);
+        header.appendChild(addTodoButton);
         return header;
     }
 
