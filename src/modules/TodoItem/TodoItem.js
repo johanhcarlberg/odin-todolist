@@ -5,6 +5,6 @@ export class TodoItem {
         this.description = description;
         this.dueDate = dueDate;
         this.isComplete = false;
-        this.projectId = projectId || 1;
+        this.projectId = projectId;
     }
 }

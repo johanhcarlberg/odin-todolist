@@ -4,9 +4,9 @@ import PubSub from "../PubSub";
 
 const todoItems = [];
 
-function addTodoItem(title, description, dueDate) {
+function addTodoItem(title, description, dueDate, projectId) {
     const newId = getNextId(todoItems);
-    const newTodoItem = new TodoItem(newId, title, description, dueDate);
+    const newTodoItem = new TodoItem(newId, title, description, dueDate, projectId || 1);
     todoItems.push(newTodoItem);
     return newTodoItem;
 }

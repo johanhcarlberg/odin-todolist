@@ -10,6 +10,7 @@ class ProjectTodoItemMediator {
     getTodoItemsForProject(projectId) {
         return getTodoItems().filter(item => item.projectId === projectId);
     }
+
 }
 
 export default new ProjectTodoItemMediator();

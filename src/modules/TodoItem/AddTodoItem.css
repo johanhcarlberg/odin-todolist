@@ -1,0 +1,19 @@
+form {
+    display: grid;
+    grid-template-columns: minmax(30%, 400px);
+    justify-items: start;
+    gap: 10px;
+    padding: 20px;
+}
+
+form input[type="text"], textarea {
+    justify-self: stretch;
+}
+
+form button {
+    border: 0;
+    padding: 8px 30px;
+    background-color: rgb(0, 140, 255);
+    color: white;
+    font-weight: bold;
+}
