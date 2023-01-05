@@ -5,8 +5,8 @@ import { getProjectById } from "./ProjectController";
 class ProjectDetail {
     render(id) {
         const project = getProjectById(id);
-        const todoItems = ProjectTodoItemMediator.getTodoItemsForProject(id);
-        console.table(todoItems);
+        const todoItems = ProjectTodoItemMediator.getTodoItemsForProject(project.id);
+
         const projectDetailDiv = document.createElement('div');
         projectDetailDiv.classList.add('project-detail');
         

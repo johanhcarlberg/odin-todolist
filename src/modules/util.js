@@ -5,7 +5,7 @@ export function getNextId(arr) {
         return 1;
     }
     return arr.reduce((previous, item) => {
-        const next = previous.id < item.value ? item : previous
+        const next = previous.id < item.id ? item : previous
         return next;
     }).id + 1;
 }

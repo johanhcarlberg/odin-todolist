@@ -1,5 +1,5 @@
 import { deleteTodoItem, getTodoItemById } from "./TodoItemController";
-import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
+import { getProjectById } from "../Project/ProjectController";
 import { publishLink } from "../util";
 import PubSub from "../PubSub";
 class TodoItemDetail {
@@ -8,9 +8,9 @@ class TodoItemDetail {
         if (!todoItem) {
             return;
         }
-        const project = ProjectTodoItemMediator.getProjectById(todoItem.projectId);
+        const project = getProjectById(todoItem.projectId);
         const todoItemDiv = document.createElement('div');
-    
+
         const todoItemHeader = document.createElement('h2');
         todoItemHeader.textContent = todoItem.title;
     
