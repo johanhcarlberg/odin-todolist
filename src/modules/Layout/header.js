@@ -25,11 +25,18 @@ class Header {
         }
         nav.appendChild(links);
 
+        const addProjectButton = document.createElement('button');
+        addProjectButton.classList.add('add-project-button');
+        addProjectButton.textContent = 'Add Project';
+        addProjectButton.addEventListener('click', (e) => { publishLink('AddProject')});
+
         const addTodoButton = document.createElement('button');
         addTodoButton.classList.add('add-todo-button');
         addTodoButton.textContent = "Add Todo Item";
         addTodoButton.addEventListener('click', (e) => { publishLink('AddTodoItem')});
+        
         header.appendChild(nav);
+        header.appendChild(addProjectButton);
         header.appendChild(addTodoButton);
         return header;
     }

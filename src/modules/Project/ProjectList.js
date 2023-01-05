@@ -35,7 +35,7 @@ class ProjectList {
     onProjectLinkClick(e, project) {
         e.preventDefault();
         console.log({project});
-        publishLink('ProjectDetail', 1);
+        publishLink('ProjectDetail', project.id);
     }
 }
 

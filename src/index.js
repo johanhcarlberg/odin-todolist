@@ -5,6 +5,7 @@ import ProjectList from './modules/Project/ProjectList';
 import Header from './modules/Layout/header';
 import ProjectDetail from './modules/Project/ProjectDetail';
 import AddTodoItem from './modules/TodoItem/AddTodoItem';
+import AddProject from './modules/Project/AddProject';
 console.log('TodoList app loaded');
 addTodoItem("Test", "Test Description", "2022-12-29");
 addTodoItem("Test2", "Test Description 2", "2022-12-30");
@@ -15,6 +16,7 @@ const pages = {
     "ProjectList": ProjectList,
     "ProjectDetail":ProjectDetail,
     "AddTodoItem":AddTodoItem,
+    "AddProject":AddProject
 }
 
 PubSub.subscribe('changePage', changePage);
