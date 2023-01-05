@@ -84,10 +84,12 @@ class AddTodoItem {
             formData.get('title'), 
             formData.get('description'), 
             formData.get('dueDate'),
-            formData.get('project')
+            Number(formData.get('project'))
         );
         if (newTodoItem) {
             form.reset();
+        } else {
+            console.log('Error when creating new todo item');
         }
     }
 }
