@@ -1,6 +1,7 @@
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { publishLink } from "../util";
 import { getProjectById } from "./ProjectController";
+import './ProjectDetail.css';
 
 class ProjectDetail {
     render(id) {
@@ -28,13 +29,24 @@ class ProjectDetail {
                 publishLink('TodoItemDetail', todoItem.id);
             })
             const todoItemHeader = document.createElement('h3');
-            todoItemHeader.textContent = todoItem.title;
-            todoItemLink.appendChild(todoItemHeader);
-            todoItemDiv.appendChild(todoItemLink);
+            todoItemLink.textContent = todoItem.title;
+            todoItemHeader.appendChild(todoItemLink);
+            todoItemDiv.appendChild(todoItemHeader);
 
             const todoItemDueDateDiv = document.createElement('div');
             todoItemDueDateDiv.textContent = `Due date: ${todoItem.dueDate}`;
             todoItemDiv.appendChild(todoItemDueDateDiv);
+
+            // TODO: Replace with component
+            const checkBoxContainer = document.createElement('div');
+            checkBoxContainer.classList.add('checkBoxContainer');
+            const checkBoxSpan = document.createElement('span');
+            checkBoxSpan.textContent = 'Finished?';
+            const checkBox = document.createElement('div');
+            checkBox.classList.add('checkbox');
+            checkBoxContainer.appendChild(checkBoxSpan);
+            checkBoxContainer.appendChild(checkBox);
+            todoItemDiv.appendChild(checkBoxContainer);
 
             todoItemsContainer.appendChild(todoItemDiv);
         }

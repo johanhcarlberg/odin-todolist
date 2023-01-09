@@ -1,0 +1,53 @@
+
+.todo-items-container {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: min-content;
+}
+
+
+
+.todo-item {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: minmax(200px, 300px) minmax(200px, 300px);
+    align-items: center;
+    border: 1px solid rgb(68, 127, 255);
+    border-left: 8px solid rgb(68, 127, 255);
+
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+.todo-item h3 {
+    margin: 0;
+    padding: 0;
+    align-self: end;
+}
+
+.todo-item h3 a {
+    text-decoration: none;
+    color: #000;
+}
+
+.checkBoxContainer {
+    justify-self: end;
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.checkBoxContainer span {
+    font-size: 12px;
+}
+
+.checkbox {
+    border: 1px solid #333;
+    width: 25px;
+    height: 25px;
+    grid-row: 2;
+}
