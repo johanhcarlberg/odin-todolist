@@ -1,3 +1,4 @@
+import Checkbox from "../../components/Checkbox";
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { publishLink } from "../util";
 import { getProjectById } from "./ProjectController";
@@ -42,10 +43,11 @@ class ProjectDetail {
             checkBoxContainer.classList.add('checkBoxContainer');
             const checkBoxSpan = document.createElement('span');
             checkBoxSpan.textContent = 'Finished?';
-            const checkBox = document.createElement('div');
-            checkBox.classList.add('checkbox');
+            const checkbox = new Checkbox(todoItem.isComplete, () => {
+                todoItem.isComplete = !todoItem.isComplete;
+            });
             checkBoxContainer.appendChild(checkBoxSpan);
-            checkBoxContainer.appendChild(checkBox);
+            checkBoxContainer.appendChild(checkbox);
             todoItemDiv.appendChild(checkBoxContainer);
 
             todoItemsContainer.appendChild(todoItemDiv);
