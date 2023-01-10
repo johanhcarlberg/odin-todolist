@@ -2,6 +2,7 @@ import { deleteTodoItem, getTodoItemById, updateTodoItem } from "./TodoItemContr
 import { getProjectById, getProjects } from "../Project/ProjectController";
 import { publishLink } from "../util";
 import PubSub from "../PubSub";
+import Checkbox from "../../components/Checkbox";
 class TodoItemDetail {
     render(id) {
         this.todoItem = getTodoItemById(id);
@@ -79,7 +80,14 @@ class TodoItemDetail {
         todoItemContent.appendChild(dueDateDiv);
 
         const isCompleteDiv = document.createElement('div');
-        isCompleteDiv.textContent = this.todoItem.isComplete;
+        const isCompleteSpan = document.createElement('span');
+        isCompleteSpan.textContent = 'Is completed';
+        const isCompleteCheckbox = new Checkbox(this.todoItem.isComplete, () => {
+            this.todoItem.isComplete = !this.todoItem.isComplete;
+            this.onItemChange();
+        })
+        isCompleteDiv.appendChild(isCompleteSpan);
+        isCompleteDiv.appendChild(isCompleteCheckbox);
         todoItemContent.appendChild(isCompleteDiv);
 
         const deleteButton = document.createElement('button');
