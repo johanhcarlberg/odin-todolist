@@ -1,5 +1,5 @@
 import { deleteTodoItem, getTodoItemById, updateTodoItem } from "./TodoItemController";
-import { getProjectById } from "../Project/ProjectController";
+import { getProjectById, getProjects } from "../Project/ProjectController";
 import { publishLink } from "../util";
 import PubSub from "../PubSub";
 class TodoItemDetail {
@@ -29,6 +29,22 @@ class TodoItemDetail {
         });
 
         projectDiv.appendChild(projectLink);
+        const projectSelect = document.createElement('select');
+        projectSelect.name = 'project';
+        for (let project of getProjects())
+        {
+            console.log(project);
+            const projectOption = document.createElement('option');
+            projectOption.name = 'project';
+            projectOption.value = project.id;
+            projectOption.text = project.name;
+            projectSelect.appendChild(projectOption);
+        }
+        projectSelect.addEventListener('change', (e) => {
+            this.todoItem.projectId = Number(e.target.value);
+            this.onItemChange();
+        })
+        projectDiv.appendChild(projectSelect);
         todoItemContent.appendChild(projectDiv);
 
         const descriptionDiv = document.createElement('div');
@@ -38,7 +54,10 @@ class TodoItemDetail {
         const descriptionInput = document.createElement('input');
         descriptionInput.value = this.todoItem.description;
         descriptionInput.name = 'description';
-        descriptionInput.addEventListener('change', this.onItemChange.bind(this));
+        descriptionInput.addEventListener('change', (e) => {
+            this.todoItem.description = e.target.value;
+            this.onItemChange();
+        });
         descriptionDiv.appendChild(descriptionLabel);
         descriptionDiv.appendChild(descriptionInput);
 
@@ -68,9 +87,7 @@ class TodoItemDetail {
         return todoItemDiv;
     }
 
-    onItemChange(e) {
-        console.log(e.target.value);
-        this.todoItem.description = e.target.value;
+    onItemChange() {
         updateTodoItem(this.todoItem);
     }
 }
