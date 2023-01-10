@@ -63,7 +63,19 @@ class TodoItemDetail {
         todoItemContent.appendChild(descriptionDiv);
 
         const dueDateDiv = document.createElement('div');
-        dueDateDiv.textContent = this.todoItem.dueDate;
+        const dueDateLabel = document.createElement('label');
+        dueDateLabel.setAttribute('for', 'dueDate');
+        dueDateLabel.textContent = 'Due Date';
+        dueDateDiv.appendChild(dueDateLabel);
+        const dueDateSelector = document.createElement('input');
+        dueDateSelector.type = 'date';
+        dueDateSelector.name = 'dueDate';
+        dueDateSelector.value = this.todoItem.dueDate;
+        dueDateSelector.addEventListener('change', (e) => {
+            this.todoItem.dueDate = e.target.value;
+            this.onItemChange();
+        });
+        dueDateDiv.appendChild(dueDateSelector);
         todoItemContent.appendChild(dueDateDiv);
 
         const isCompleteDiv = document.createElement('div');
