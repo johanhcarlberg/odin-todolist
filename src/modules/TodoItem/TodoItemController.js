@@ -27,4 +27,13 @@ function deleteTodoItem(id) {
     todoItems.splice(getIndexFromId(id), 1);
 }
 
-export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem };
+function updateTodoItem(item) {
+    const oldItem = getTodoItemById(item.id);
+    if (!oldItem) {
+        return;
+    }
+
+    todoItems[getIndexFromId(item.id)] = item;
+}
+
+export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem, updateTodoItem };

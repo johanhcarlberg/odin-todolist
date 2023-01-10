@@ -1,24 +1,26 @@
-import { deleteTodoItem, getTodoItemById } from "./TodoItemController";
+import { deleteTodoItem, getTodoItemById, updateTodoItem } from "./TodoItemController";
 import { getProjectById } from "../Project/ProjectController";
 import { publishLink } from "../util";
 import PubSub from "../PubSub";
 class TodoItemDetail {
     render(id) {
-        const todoItem = getTodoItemById(id);
-        if (!todoItem) {
+        this.todoItem = getTodoItemById(id);
+        if (!this.todoItem) {
             return;
         }
-        const project = getProjectById(todoItem.projectId);
+        const project = getProjectById(this.todoItem.projectId);
         const todoItemDiv = document.createElement('div');
 
         const todoItemHeader = document.createElement('h2');
-        todoItemHeader.textContent = todoItem.title;
+        todoItemHeader.textContent = this.todoItem.title;
     
         const todoItemContent = document.createElement('div');
+
 
         const projectDiv = document.createElement('div');
         projectDiv.textContent = 'Project: ';
         const projectLink = document.createElement('a');
+
         projectLink.href = '#';
         projectLink.textContent = project.name;
         projectLink.addEventListener('click', (e) => {
@@ -30,22 +32,31 @@ class TodoItemDetail {
         todoItemContent.appendChild(projectDiv);
 
         const descriptionDiv = document.createElement('div');
-        descriptionDiv.textContent = todoItem.description;
+        const descriptionLabel = document.createElement('label');
+        descriptionLabel.setAttribute('for', 'description');
+        descriptionLabel.textContent = 'Description';
+        const descriptionInput = document.createElement('input');
+        descriptionInput.value = this.todoItem.description;
+        descriptionInput.name = 'description';
+        descriptionInput.addEventListener('change', this.onItemChange.bind(this));
+        descriptionDiv.appendChild(descriptionLabel);
+        descriptionDiv.appendChild(descriptionInput);
+
         todoItemContent.appendChild(descriptionDiv);
 
         const dueDateDiv = document.createElement('div');
-        dueDateDiv.textContent = todoItem.dueDate;
+        dueDateDiv.textContent = this.todoItem.dueDate;
         todoItemContent.appendChild(dueDateDiv);
 
         const isCompleteDiv = document.createElement('div');
-        isCompleteDiv.textContent = todoItem.isComplete;
+        isCompleteDiv.textContent = this.todoItem.isComplete;
         todoItemContent.appendChild(isCompleteDiv);
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete-button');
         deleteButton.addEventListener('click', (e) => {
-            deleteTodoItem(todoItem.id);
+            deleteTodoItem(this.todoItem.id);
             PubSub.publish('changePage', {page: 'ProjectDetail', data: project.id});
         });
         todoItemContent.appendChild(deleteButton);
@@ -55,6 +66,12 @@ class TodoItemDetail {
         todoItemDiv.appendChild(todoItemContent);
     
         return todoItemDiv;
+    }
+
+    onItemChange(e) {
+        console.log(e.target.value);
+        this.todoItem.description = e.target.value;
+        updateTodoItem(this.todoItem);
     }
 }
 
