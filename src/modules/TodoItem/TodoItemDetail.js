@@ -33,7 +33,6 @@ class TodoItemDetail {
         projectSelect.name = 'project';
         for (let project of getProjects())
         {
-            console.log(project);
             const projectOption = document.createElement('option');
             projectOption.name = 'project';
             projectOption.value = project.id;
@@ -89,6 +88,7 @@ class TodoItemDetail {
 
     onItemChange() {
         updateTodoItem(this.todoItem);
+        publishLink('TodoItemDetail', this.todoItem.id);
     }
 }
 

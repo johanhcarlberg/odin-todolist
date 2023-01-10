@@ -34,7 +34,6 @@ function updateTodoItem(item) {
     }
 
     todoItems[getIndexFromId(item.id)] = item;
-    console.table(getTodoItems());
 }
 
 export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem, updateTodoItem };
