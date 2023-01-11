@@ -44,3 +44,18 @@
 .checkBoxContainer span {
     font-size: 12px;
 }
+
+.priority-high {
+    border: 1px solid rgb(255, 87, 58);
+    border-left: 8px solid rgb(255, 87, 58);
+}
+
+.priority-medium {
+    border: 1px solid rgb(255, 202, 58);
+    border-left: 8px solid rgb(255, 202, 58);
+}
+
+.priority-low {
+    border: 1px solid rgb(140, 253, 88);
+    border-left: 8px solid rgb(140, 253, 88);
+}

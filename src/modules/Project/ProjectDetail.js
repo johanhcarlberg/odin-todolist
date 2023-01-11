@@ -1,5 +1,6 @@
 import Checkbox from "../../components/Checkbox";
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
+import { TodoItem } from "../TodoItem/TodoItem";
 import { publishLink } from "../util";
 import { getProjectById } from "./ProjectController";
 import './ProjectDetail.css';
@@ -22,6 +23,7 @@ class ProjectDetail {
         for (let todoItem of todoItems) {
             const todoItemDiv = document.createElement('div');
             todoItemDiv.classList.add('todo-item');
+            todoItemDiv.classList.add(`priority-${TodoItem.priorities[todoItem.priority].toLowerCase()}`);
 
             const todoItemLink = document.createElement('a');
             todoItemLink.href = '#';
