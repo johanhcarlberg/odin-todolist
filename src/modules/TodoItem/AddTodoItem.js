@@ -100,6 +100,7 @@ class AddTodoItem {
         let formData = new FormData(form);
         const newTodoItem = addTodoItem(
             formData.get('title'), 
+            formData.get('priority'),
             formData.get('description'), 
             formData.get('dueDate'),
             Number(formData.get('project'))

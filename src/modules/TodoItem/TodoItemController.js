@@ -2,7 +2,8 @@ import { TodoItem } from "./TodoItem";
 import { getNextId } from "../util";
 import PubSub from "../PubSub";
 
-const todoItems = [];
+const todoItems = JSON.parse(localStorage.getItem('todoItems')) || [];
+console.log(todoItems);
 
 function addTodoItem(title, priority, description, dueDate, projectId) {
     const newId = getNextId(todoItems);
@@ -15,6 +16,7 @@ function addTodoItem(title, priority, description, dueDate, projectId) {
 
     const newTodoItem = new TodoItem(newId, title, Number(priority), description, dueDate, projectId || 1);
     todoItems.push(newTodoItem);
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
     return newTodoItem;
 }
 

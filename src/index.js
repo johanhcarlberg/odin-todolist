@@ -8,8 +8,11 @@ import AddTodoItem from './modules/TodoItem/AddTodoItem';
 import AddProject from './modules/Project/AddProject';
 import './style.css';
 console.log('TodoList app loaded');
-addTodoItem("Test", 1, "Test Description", "2022-12-29");
-addTodoItem("Test2", 1, "Test Description 2", "2022-12-30");
+if (getTodoItems().length === 0) {
+    addTodoItem("Test", 1, "Test Description", "2022-12-29");
+    addTodoItem("Test2", 1, "Test Description 2", "2022-12-30");
+}
+
 console.table(getTodoItems());
 
 const pages = {
