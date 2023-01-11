@@ -2,6 +2,7 @@ import { deleteTodoItem, getTodoItemById, updateTodoItem } from "./TodoItemContr
 import { getProjectById, getProjects } from "../Project/ProjectController";
 import { publishLink } from "../util";
 import { TodoItem } from "./TodoItem";
+import './TodoItemDetail.css';
 import PubSub from "../PubSub";
 import Checkbox from "../../components/Checkbox";
 class TodoItemDetail {
@@ -17,19 +18,21 @@ class TodoItemDetail {
         todoItemHeader.textContent = this.todoItem.title;
     
         const todoItemContent = document.createElement('div');
+        todoItemContent.classList.add('todoItemContent');
 
-        const projectDiv = document.createElement('div');
-        projectDiv.textContent = 'Project: ';
+        const projectSpan = document.createElement('span');
+        projectSpan.textContent = 'Project: ';
+        todoItemContent.appendChild(projectSpan);
+
         const projectLink = document.createElement('a');
-
         projectLink.href = '#';
         projectLink.textContent = project.name;
         projectLink.addEventListener('click', (e) => {
             e.preventDefault();
             publishLink('ProjectDetail', project.id)
         });
+        projectSpan.appendChild(projectLink);
 
-        projectDiv.appendChild(projectLink);
         const projectSelect = document.createElement('select');
         projectSelect.name = 'project';
         for (let project of getProjects())
@@ -44,8 +47,7 @@ class TodoItemDetail {
             this.todoItem.projectId = Number(e.target.value);
             this.onItemChange();
         })
-        projectDiv.appendChild(projectSelect);
-        todoItemContent.appendChild(projectDiv);
+        todoItemContent.appendChild(projectSelect);
 
         const priorityLabel = document.createElement('label');
         priorityLabel.setAttribute('for', 'priority');
@@ -72,8 +74,6 @@ class TodoItemDetail {
         })
         todoItemContent.appendChild(prioritySelect);
 
-
-        const descriptionDiv = document.createElement('div');
         const descriptionLabel = document.createElement('label');
         descriptionLabel.setAttribute('for', 'description');
         descriptionLabel.textContent = 'Description';
@@ -84,16 +84,13 @@ class TodoItemDetail {
             this.todoItem.description = e.target.value;
             this.onItemChange();
         });
-        descriptionDiv.appendChild(descriptionLabel);
-        descriptionDiv.appendChild(descriptionInput);
+        todoItemContent.appendChild(descriptionLabel);
+        todoItemContent.appendChild(descriptionInput);
 
-        todoItemContent.appendChild(descriptionDiv);
-
-        const dueDateDiv = document.createElement('div');
         const dueDateLabel = document.createElement('label');
         dueDateLabel.setAttribute('for', 'dueDate');
         dueDateLabel.textContent = 'Due Date';
-        dueDateDiv.appendChild(dueDateLabel);
+        todoItemContent.appendChild(dueDateLabel);
         const dueDateSelector = document.createElement('input');
         dueDateSelector.type = 'date';
         dueDateSelector.name = 'dueDate';
@@ -102,19 +99,16 @@ class TodoItemDetail {
             this.todoItem.dueDate = e.target.value;
             this.onItemChange();
         });
-        dueDateDiv.appendChild(dueDateSelector);
-        todoItemContent.appendChild(dueDateDiv);
+        todoItemContent.appendChild(dueDateSelector);
 
-        const isCompleteDiv = document.createElement('div');
         const isCompleteSpan = document.createElement('span');
         isCompleteSpan.textContent = 'Is completed';
         const isCompleteCheckbox = new Checkbox(this.todoItem.isComplete, () => {
             this.todoItem.isComplete = !this.todoItem.isComplete;
             this.onItemChange();
         })
-        isCompleteDiv.appendChild(isCompleteSpan);
-        isCompleteDiv.appendChild(isCompleteCheckbox);
-        todoItemContent.appendChild(isCompleteDiv);
+        todoItemContent.appendChild(isCompleteSpan);
+        todoItemContent.appendChild(isCompleteCheckbox);
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';

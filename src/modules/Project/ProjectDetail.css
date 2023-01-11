@@ -12,10 +12,10 @@
     grid-template-rows: 1fr 1fr;
     grid-template-columns: minmax(200px, 300px) minmax(200px, 300px);
     align-items: center;
-    border: 1px solid rgb(68, 127, 255);
+    border: 1px solid #333;
     border-left: 8px solid rgb(68, 127, 255);
 
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 5px 10px;
 }
 
@@ -46,12 +46,10 @@
 }
 
 .priority-high {
-    border: 1px solid rgb(255, 87, 58);
     border-left: 8px solid rgb(255, 87, 58);
 }
 
 .priority-medium {
-    border: 1px solid rgb(255, 202, 58);
     border-left: 8px solid rgb(255, 202, 58);
 }
 
