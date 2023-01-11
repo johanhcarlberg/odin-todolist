@@ -42,6 +42,9 @@ class TodoItemDetail {
             projectOption.value = project.id;
             projectOption.text = project.name;
             projectSelect.appendChild(projectOption);
+            if (project.id === this.todoItem.projectId) {
+                projectOption.selected = true;
+            }
         }
         projectSelect.addEventListener('change', (e) => {
             this.todoItem.projectId = Number(e.target.value);
