@@ -3,7 +3,6 @@ import { getNextId } from "../util";
 import PubSub from "../PubSub";
 
 const todoItems = JSON.parse(localStorage.getItem('todoItems')) || [];
-console.log(todoItems);
 
 function addTodoItem(title, priority, description, dueDate, projectId) {
     const newId = getNextId(todoItems);
@@ -16,7 +15,7 @@ function addTodoItem(title, priority, description, dueDate, projectId) {
 
     const newTodoItem = new TodoItem(newId, title, Number(priority), description, dueDate, projectId || 1);
     todoItems.push(newTodoItem);
-    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+    PubSub.publish('TodoItemsChanged');
     return newTodoItem;
 }
 
@@ -34,6 +33,7 @@ function getIndexFromId(id) {
 
 function deleteTodoItem(id) {
     todoItems.splice(getIndexFromId(id), 1);
+    PubSub.publish('TodoItemsChanged');
 }
 
 function updateTodoItem(item) {
@@ -43,6 +43,11 @@ function updateTodoItem(item) {
     }
 
     todoItems[getIndexFromId(item.id)] = item;
+    PubSub.publish('TodoItemsChanged');
 }
+
+PubSub.subscribe('TodoItemsChanged', () => {
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+});
 
 export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem, updateTodoItem };
