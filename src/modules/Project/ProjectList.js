@@ -1,5 +1,7 @@
 import { getProjects } from "./ProjectController";
 import { publishLink } from "../util";
+import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
+import './ProjectList.css';
 class ProjectList {
     render() {
         const projects = getProjects();
@@ -8,26 +10,28 @@ class ProjectList {
     
         const projectListHeader = document.createElement('h2');
         projectListHeader.textContent = "Projects";
-    
-        const projectList = document.createElement('ul');
-        projectList.classList.add('project-list');
+        projectListContainerDiv.appendChild(projectListHeader);
     
         for (let project of projects) {
-
-            const projectListItem = document.createElement('li');
-            projectListItem.classList.add('project-list-item');
-
             const projectLink = document.createElement('a');
             projectLink.href="#";
-            projectLink.textContent = project.name;
             projectLink.addEventListener('click', (e) => this.onProjectLinkClick(e, project));
-    
-            projectListItem.appendChild(projectLink);
-            projectList.appendChild(projectListItem);
+
+            const projectDiv = document.createElement('div');
+            projectDiv.classList.add('project-card');
+            const projectNameHeader = document.createElement('h3');
+            projectNameHeader.textContent = project.name;
+            const projectTodoItemsCounter = document.createElement('span');
+            const todoItemsCount = ProjectTodoItemMediator.getTodoItemsForProject(project.id).length;
+            projectTodoItemsCounter.textContent = `Todo items: ${todoItemsCount}`;
+
+            projectLink.appendChild(projectDiv);
+
+            projectDiv.appendChild(projectNameHeader);
+            projectDiv.appendChild(projectTodoItemsCounter);
+
+            projectListContainerDiv.appendChild(projectLink);
         }
-        
-        projectListContainerDiv.appendChild(projectListHeader);
-        projectListContainerDiv.appendChild(projectList);
     
         return projectListContainerDiv;
     }

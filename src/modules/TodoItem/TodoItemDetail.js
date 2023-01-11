@@ -1,6 +1,7 @@
 import { deleteTodoItem, getTodoItemById, updateTodoItem } from "./TodoItemController";
 import { getProjectById, getProjects } from "../Project/ProjectController";
 import { publishLink } from "../util";
+import { TodoItem } from "./TodoItem";
 import PubSub from "../PubSub";
 import Checkbox from "../../components/Checkbox";
 class TodoItemDetail {
@@ -16,7 +17,6 @@ class TodoItemDetail {
         todoItemHeader.textContent = this.todoItem.title;
     
         const todoItemContent = document.createElement('div');
-
 
         const projectDiv = document.createElement('div');
         projectDiv.textContent = 'Project: ';
@@ -46,6 +46,32 @@ class TodoItemDetail {
         })
         projectDiv.appendChild(projectSelect);
         todoItemContent.appendChild(projectDiv);
+
+        const priorityLabel = document.createElement('label');
+        priorityLabel.setAttribute('for', 'priority');
+        priorityLabel.textContent = 'Priority';
+        todoItemContent.appendChild(priorityLabel);
+        const prioritySelect = document.createElement('select');
+        prioritySelect.required = true;
+        prioritySelect.name = 'priority';
+        prioritySelect.id = 'priority';
+        for (const priority of Object.keys(TodoItem.priorities)) {
+            const priorityNum = Number(priority);
+            const priorityOption = document.createElement('option');
+            priorityOption.name = 'priority';
+            priorityOption.value = priorityNum;
+            priorityOption.text = TodoItem.priorities[priorityNum];
+            if (priorityNum === this.todoItem.priority) {
+                priorityOption.selected = true;
+            }
+            prioritySelect.appendChild(priorityOption);
+        }
+        prioritySelect.addEventListener('change', (e) => {
+            this.todoItem.priority = Number(e.target.value);
+            this.onItemChange();
+        })
+        todoItemContent.appendChild(prioritySelect);
+
 
         const descriptionDiv = document.createElement('div');
         const descriptionLabel = document.createElement('label');

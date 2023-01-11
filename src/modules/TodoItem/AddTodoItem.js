@@ -1,5 +1,6 @@
 import { getProjects } from "../Project/ProjectController";
 import './AddTodoItem.css';
+import { TodoItem } from "./TodoItem";
 import { addTodoItem } from "./TodoItemController";
 
 class AddTodoItem {
@@ -24,6 +25,23 @@ class AddTodoItem {
         nameInput.type = 'text';
         nameInput.id = 'title';
         todoItemForm.appendChild(nameInput);
+
+        const priorityLabel = document.createElement('label');
+        priorityLabel.setAttribute('for', 'priority');
+        priorityLabel.textContent = 'Priority';
+        todoItemForm.appendChild(priorityLabel);
+        const prioritySelect = document.createElement('select');
+        prioritySelect.required = true;
+        prioritySelect.name = 'priority';
+        prioritySelect.id = 'priority';
+        for (let priority of Object.keys(TodoItem.priorities)) {
+            const priorityOption = document.createElement('option');
+            priorityOption.name = 'priority';
+            priorityOption.value = priority;
+            priorityOption.text = TodoItem.priorities[priority];
+            prioritySelect.appendChild(priorityOption);
+        }
+        todoItemForm.appendChild(prioritySelect);
         
         const descriptionLabel = document.createElement('label');
         descriptionLabel.setAttribute('for', 'description');
