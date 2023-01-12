@@ -10,8 +10,8 @@ export class TodoItem {
     }
 
     static priorities = {
-        1: "High",
-        2: "Medium",
-        3: "Low"
+        1: "Critical",
+        2: "Important",
+        3: "Default"
     }
 }
