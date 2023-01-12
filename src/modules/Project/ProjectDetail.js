@@ -2,7 +2,7 @@ import Checkbox from "../../components/Checkbox";
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { TodoItem } from "../TodoItem/TodoItem";
 import { publishLink } from "../util";
-import { getProjectById } from "./ProjectController";
+import { deleteProject, getProjectById, getProjects } from "./ProjectController";
 import './ProjectDetail.css';
 
 class ProjectDetail {
@@ -60,8 +60,22 @@ class ProjectDetail {
 
             todoItemsContainer.appendChild(todoItemDiv);
         }
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete Project';
+        deleteButton.classList.add('delete-project-button');
 
+        if (project.name === 'Default' || getProjects().length <= 1) {
+            deleteButton.disabled = true;
+        }
+
+        deleteButton.addEventListener('click', (e) => {
+            deleteProject(project.id);
+            publishLink('ProjectList');
+        });
+        todoItemsContainer.appendChild(deleteButton);
         projectDetailDiv.appendChild(todoItemsContainer);
+        
         return projectDetailDiv;
     }
 }

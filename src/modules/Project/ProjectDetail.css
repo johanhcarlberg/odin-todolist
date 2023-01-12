@@ -2,7 +2,7 @@
 .todo-items-container {
     display: grid;
     gap: 25px;
-    grid-template-columns: min-content;
+    grid-template-columns: minmax(300px, min-content);
 }
 
 
@@ -66,4 +66,19 @@
 
 .checkbox:hover {
     cursor:default;
+}
+
+.delete-project-button {
+    border: 0;
+    padding: 8px 30px;
+    background-color: rgb(255, 66, 66);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    justify-self: start;
+}
+
+.delete-project-button:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
 }
