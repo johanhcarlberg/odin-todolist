@@ -12,11 +12,16 @@
     grid-template-rows: 1fr 1fr;
     grid-template-columns: minmax(200px, 300px) minmax(200px, 300px);
     align-items: center;
-    border: 1px solid #333;
+    border: 1px solid #ccc;
     border-left: 8px solid rgb(68, 127, 255);
 
     border-radius: 4px;
     padding: 5px 10px;
+    background-color: #FAF9F6;
+}
+
+.todo-item:hover {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
 }
 
 .todo-item h3 {
