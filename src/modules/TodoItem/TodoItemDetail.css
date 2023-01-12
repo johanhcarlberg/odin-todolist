@@ -36,6 +36,6 @@
     cursor: pointer;
 }
 
-button:hover {
+.delete-todoitem-button button:hover {
     background-color: rgb(255, 87, 87);
 }
