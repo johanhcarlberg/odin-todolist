@@ -1,5 +1,5 @@
 import { Project } from "./Project";
-import { getNextId } from "../util";
+import { getNextId, getIndexFromId } from "../util";
 import PubSub from "../PubSub";
 
 const projects = JSON.parse(localStorage.getItem('projects')) || [];
@@ -23,8 +23,13 @@ function getProjectById(id) {
     return projects.find(project => project.id === id);
 }
 
+function deleteProject(id) {
+    projects.splice(getIndexFromId(projects, id), 1);
+    PubSub.publish('ProjectChanged');
+}
+
 PubSub.subscribe('ProjectChanged', () => {
     localStorage.setItem('projects', JSON.stringify(projects));
 });
 
-export { addProject, getProjects, getProjectById }
+export { addProject, getProjects, getProjectById, deleteProject }
