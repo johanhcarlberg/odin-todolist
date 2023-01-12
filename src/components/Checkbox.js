@@ -22,7 +22,9 @@ export default class Checkbox {
 
     updateCheckMark() {
         if (this.checked) {
-            this.checkboxDiv.innerHTML = checkSvg;
+            const tempSvg = document.createElement('div');
+            tempSvg.innerHTML = checkSvg;
+            this.checkboxDiv.appendChild(tempSvg.firstChild);
         } else {
             this.checkboxDiv.innerHTML = '';
         }

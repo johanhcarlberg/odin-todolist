@@ -21,19 +21,14 @@ class ProjectDetail {
         todoItemsContainer.classList.add('todo-items-container');
 
         for (let todoItem of todoItems) {
+
             const todoItemDiv = document.createElement('div');
             todoItemDiv.classList.add('todo-item');
             todoItemDiv.classList.add(`priority-${TodoItem.priorities[todoItem.priority].toLowerCase()}`);
 
-            const todoItemLink = document.createElement('a');
-            todoItemLink.href = '#';
-            todoItemLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                publishLink('TodoItemDetail', todoItem.id);
-            })
+            
             const todoItemHeader = document.createElement('h3');
-            todoItemLink.textContent = todoItem.title;
-            todoItemHeader.appendChild(todoItemLink);
+            todoItemHeader.textContent = todoItem.title;
             todoItemDiv.appendChild(todoItemHeader);
 
             const todoItemDueDateDiv = document.createElement('div');
@@ -51,6 +46,17 @@ class ProjectDetail {
             checkBoxContainer.appendChild(checkBoxSpan);
             checkBoxContainer.appendChild(checkbox);
             todoItemDiv.appendChild(checkBoxContainer);
+
+            todoItemDiv.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log(e.target);
+                console.log(e.currentTarget);
+                console.log(e.target.tagName);
+                if (e.target === checkbox || e.target.tagName === 'svg') {
+                    return;
+                }
+                publishLink('TodoItemDetail', todoItem.id);
+            })
 
             todoItemsContainer.appendChild(todoItemDiv);
         }
