@@ -18,5 +18,5 @@ export function publishLink(page, data) {
 }
 
 export function getIndexFromId(arr, id) {
-    return todoItems.findIndex(item => item.id === id);
+    return arr.findIndex(item => item.id === id);
 }
