@@ -3,6 +3,19 @@
     display: grid;
     grid-template-columns: 2fr 3fr;
     justify-items: start;
+    gap: 10px;
+}
+
+.todo-item-container h2 {
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.todo-item-container {
+    background-color: #FAF9F6;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.17);
 }
 
 .project span {
@@ -12,4 +25,17 @@
 
 .project select {
     grid-column: 2;
+}
+
+button {
+    border: 0;
+    padding: 8px 30px;
+    background-color: rgb(255, 66, 66);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(255, 87, 87);
 }

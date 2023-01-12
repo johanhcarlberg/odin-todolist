@@ -13,6 +13,7 @@ class TodoItemDetail {
         }
         const project = getProjectById(this.todoItem.projectId);
         const todoItemDiv = document.createElement('div');
+        todoItemDiv.classList.add('todo-item-container');
 
         const todoItemHeader = document.createElement('h2');
         todoItemHeader.textContent = this.todoItem.title;
