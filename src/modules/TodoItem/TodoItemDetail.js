@@ -116,7 +116,7 @@ class TodoItemDetail {
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-button');
+        deleteButton.classList.add('delete-todoitem-button');
         deleteButton.addEventListener('click', (e) => {
             deleteTodoItem(this.todoItem.id);
             PubSub.publish('changePage', {page: 'ProjectDetail', data: project.id});
