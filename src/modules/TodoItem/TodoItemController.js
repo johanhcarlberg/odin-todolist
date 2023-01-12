@@ -1,5 +1,5 @@
 import { TodoItem } from "./TodoItem";
-import { getNextId } from "../util";
+import { getNextId, getIndexFromId } from "../util";
 import PubSub from "../PubSub";
 
 const todoItems = JSON.parse(localStorage.getItem('todoItems')) || [];
@@ -27,12 +27,8 @@ function getTodoItemById(id) {
     return todoItems.find(item => item.id === id);
 }
 
-function getIndexFromId(id) {
-    return todoItems.findIndex(item => item.id === id);
-}
-
 function deleteTodoItem(id) {
-    todoItems.splice(getIndexFromId(id), 1);
+    todoItems.splice(getIndexFromId(todoItems, id), 1);
     PubSub.publish('TodoItemsChanged');
 }
 

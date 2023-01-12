@@ -16,3 +16,7 @@ export function publishLink(page, data) {
         data
     });
 }
+
+export function getIndexFromId(arr, id) {
+    return todoItems.findIndex(item => item.id === id);
+}
