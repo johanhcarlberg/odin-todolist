@@ -1,0 +1,21 @@
+.todo-items-list {
+    list-style: none;
+}
+
+.todo-items-list li {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.todo-items-list li:last-child {
+    border-bottom: none;
+}
+
+.todo-items-list .checkbox {
+    grid-row: 1 / span 2;
+}
