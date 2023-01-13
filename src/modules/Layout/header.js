@@ -1,6 +1,6 @@
 import PubSub from "../PubSub";
 import { publishLink } from "../util";
-import './style.css';
+import './header.css';
 
 class Header {
     pageLinks = [
