@@ -6,6 +6,10 @@ body {
     background-color: #E8F0F2;
     margin: 0;
     padding: 0;
+
+    display: grid;
+    grid-template-columns: 300px, 1fr;
+    grid-template-rows: 100px, 1fr;
 }
 
 .main-content {
