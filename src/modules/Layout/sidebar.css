@@ -9,13 +9,13 @@
     gap: 30px;
 }
 
-.sidebar-main-links {
+.sidebar-link-list {
     display: flex;
     flex-direction: column;
     list-style: none;
 }
 
-.main-link-item > a {
+.sidebar-link-item > a {
     display: block;
     text-decoration: none;
     color: #000;
@@ -23,8 +23,12 @@
     font-size: 14px;
 }
 
-.main-link-item > a:hover {
+.sidebar-link-item > a:hover {
     display: block;
     text-decoration: none;
     background-color: #eee;
+}
+
+.sidebar-link-list-header > a {
+    font-weight: bold;
 }
