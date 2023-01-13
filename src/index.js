@@ -3,6 +3,7 @@ import { addTodoItem, getTodoItemById, getTodoItems } from './modules/TodoItem/T
 import TodoItemDetail from './modules/TodoItem/TodoItemDetail';
 import ProjectList from './modules/Project/ProjectList';
 import Header from './modules/Layout/header';
+import Sidebar from './modules/Layout/sidebar';
 import ProjectDetail from './modules/Project/ProjectDetail';
 import AddTodoItem from './modules/TodoItem/AddTodoItem';
 import AddProject from './modules/Project/AddProject';
@@ -26,6 +27,7 @@ const pages = {
 PubSub.subscribe('changePage', changePage);
 
 document.body.appendChild(Header.render());
+document.body.appendChild(Sidebar.render());
 const mainContent = document.createElement('div');
 mainContent.classList.add('main-content');
 document.body.appendChild(mainContent);
