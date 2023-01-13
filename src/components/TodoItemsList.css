@@ -19,3 +19,10 @@
 .todo-items-list .checkbox {
     grid-row: 1 / span 2;
 }
+
+.todo-items-list-item-content {
+    grid-row: 1 / span 2;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    cursor: pointer;
+}

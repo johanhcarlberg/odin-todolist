@@ -23,15 +23,20 @@ class TodoItemsList {
                 updateTodoItem(todoItem);
             });
             todoItemsListItem.appendChild(checkBox);
-
+            const todoItemContent = document.createElement('div');
+            todoItemContent.className = 'todo-items-list-item-content';
+            todoItemContent.addEventListener('click', () => {
+                publishLink('TodoItemDetail', todoItem.id);
+            });
             const todoItemName = document.createElement('span');
             todoItemName.textContent = todoItem.title;
-            todoItemsListItem.appendChild(todoItemName);
+            todoItemContent.appendChild(todoItemName);
             
             const todoItemDueDate = document.createElement('span');
             todoItemDueDate.textContent = todoItem.dueDate;
-            todoItemsListItem.appendChild(todoItemDueDate);
+            todoItemContent.appendChild(todoItemDueDate);
 
+            todoItemsListItem.appendChild(todoItemContent);
             todoItemsList.appendChild(todoItemsListItem);
         }
         return todoItemsList;
