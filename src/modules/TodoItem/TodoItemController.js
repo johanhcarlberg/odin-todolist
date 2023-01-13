@@ -38,7 +38,7 @@ function updateTodoItem(item) {
         return;
     }
 
-    todoItems[getIndexFromId(item.id)] = item;
+    todoItems[getIndexFromId(todoItems, item.id)] = item;
     PubSub.publish('TodoItemsChanged');
 }
 
