@@ -1,4 +1,5 @@
 import { getProjects } from '../Project/ProjectController';
+import { publishLink } from '../util';
 import './sidebar.css';
 
 class Sidebar {
@@ -41,6 +42,10 @@ class Sidebar {
             const projectLink = document.createElement('a');
             projectLink.href = '#';
             projectLink.text = project.name;
+            projectLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                publishLink('ProjectDetail', project.id);
+            })
             projectItem.appendChild(projectLink);
 
             projectList.appendChild(projectItem);
