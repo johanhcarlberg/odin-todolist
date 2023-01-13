@@ -1,3 +1,5 @@
+import './sidebar.css';
+
 class Sidebar {
     render() {
         const sidebarDiv = document.createElement('div');
