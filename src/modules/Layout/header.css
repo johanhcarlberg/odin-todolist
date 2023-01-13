@@ -2,7 +2,7 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    background-color: #FAF9F6;
+    background-color: #FC8621;
     box-shadow: 0 3px 5px #aaa;
 
     grid-row: 1;
