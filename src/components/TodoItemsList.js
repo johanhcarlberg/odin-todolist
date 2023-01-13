@@ -25,9 +25,7 @@ class TodoItemsList {
             todoItemsListItem.appendChild(checkBox);
             const todoItemContent = document.createElement('div');
             todoItemContent.className = 'todo-items-list-item-content';
-            todoItemContent.addEventListener('click', () => {
-                publishLink('TodoItemDetail', todoItem.id);
-            });
+            
             const todoItemName = document.createElement('span');
             todoItemName.textContent = todoItem.title;
             todoItemContent.appendChild(todoItemName);
@@ -35,6 +33,14 @@ class TodoItemsList {
             const todoItemDueDate = document.createElement('span');
             todoItemDueDate.textContent = todoItem.dueDate;
             todoItemContent.appendChild(todoItemDueDate);
+
+            todoItemsListItem.addEventListener('click', (e) => {
+                console.log(e.target);
+                if (e.target === todoItemsListItem || todoItemContent.contains(e.target)) {
+                    publishLink('TodoItemDetail', todoItem.id);
+                }
+                
+            });
 
             todoItemsListItem.appendChild(todoItemContent);
             todoItemsList.appendChild(todoItemsListItem);
