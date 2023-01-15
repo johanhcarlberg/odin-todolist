@@ -1,28 +1,28 @@
 import { getTodoItems } from "./TodoItemController"
+import TodoItemsList from "../../components/TodoItemsList";
 
 class TodoItemList {
-    constructor(filter) {
-        this.filter = filters[filter];
-        this.todoItems = this.filter['callback']();
-    }
 
-    static filters = {
-        'All':{
+    filters = {
+        'all':{
             'callback':this.allTodoItemsFilter,
             'title':'All Todo Items'
-        },
-    }
+        }, 
+    };
 
-    static allTodoItemsFilter() {
+    allTodoItemsFilter() {
         return getTodoItems();
     }
 
-    render() {
+    render(filter) {
+        this.filter = filter;
+        this.todoItems = this.filter['callback']();
+
         const todoItemListContainer = document.createElement('div');
         const todoItemListHeader = document.createElement('h2');
         todoItemListHeader.textContent = this.filter['title'];
         todoItemListContainer.appendChild(todoItemListHeader);
-        const todoItemsList = new todoItemsList(this.todoItems);
+        const todoItemsList = new TodoItemsList(this.todoItems).render();
         todoItemListContainer.appendChild(todoItemsList);
 
         return todoItemListContainer;
