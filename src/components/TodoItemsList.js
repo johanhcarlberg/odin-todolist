@@ -2,6 +2,7 @@ import { updateTodoItem } from "../modules/TodoItem/TodoItemController";
 import { publishLink } from "../modules/util";
 import './TodoItemsList.css';
 import Checkbox from "./Checkbox";
+import formatISO from "date-fns/formatISO";
 
 class TodoItemsList {
     constructor(todoItems) {
@@ -31,7 +32,7 @@ class TodoItemsList {
             todoItemContent.appendChild(todoItemName);
             
             const todoItemDueDate = document.createElement('span');
-            todoItemDueDate.textContent = todoItem.dueDate;
+            todoItemDueDate.textContent = formatISO(todoItem.dueDate, {representation: 'date'});
             todoItemContent.appendChild(todoItemDueDate);
 
             todoItemsListItem.addEventListener('click', (e) => {
