@@ -1,4 +1,5 @@
 import { getProjects } from '../Project/ProjectController';
+import TodoItemList from '../TodoItem/TodoItemList';
 import { publishLink } from '../util';
 import './sidebar.css';
 
@@ -21,6 +22,12 @@ class Sidebar {
             mainLinkA.href = '#';
             mainLinkA.text = link;
             mainLinkItem.appendChild(mainLinkA);
+            if(link === 'All items') {
+                mainLinkItem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    publishLink('TodoItemList', TodoItemList.filters['all']);
+                })
+            }
             
             mainLinksList.appendChild(mainLinkItem);
         }
