@@ -31,7 +31,6 @@ class TodoItemList {
     }  
 
     render(filter) {
-        console.log(filter);
         this.filter = filter;
         this.todoItems = this.filter['callback']();
 
