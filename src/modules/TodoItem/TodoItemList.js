@@ -28,3 +28,5 @@ class TodoItemList {
         return todoItemListContainer;
     }
 }
+
+export default new TodoItemList();

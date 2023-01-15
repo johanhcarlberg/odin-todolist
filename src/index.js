@@ -7,6 +7,7 @@ import Sidebar from './modules/Layout/sidebar';
 import ProjectDetail from './modules/Project/ProjectDetail';
 import AddTodoItem from './modules/TodoItem/AddTodoItem';
 import AddProject from './modules/Project/AddProject';
+import TodoItemList from './modules/TodoItem/TodoItemList';
 import './style.css';
 console.log('TodoList app loaded');
 if (getTodoItems().length === 0) {
@@ -21,7 +22,8 @@ const pages = {
     "ProjectList": ProjectList,
     "ProjectDetail":ProjectDetail,
     "AddTodoItem":AddTodoItem,
-    "AddProject":AddProject
+    "AddProject":AddProject,
+    'TodoItemList':TodoItemList,
 }
 
 PubSub.subscribe('changePage', changePage);
