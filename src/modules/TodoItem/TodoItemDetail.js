@@ -5,6 +5,7 @@ import { TodoItem } from "./TodoItem";
 import './TodoItemDetail.css';
 import PubSub from "../PubSub";
 import Checkbox from "../../components/Checkbox";
+import formatISO from 'date-fns/formatISO'
 class TodoItemDetail {
     render(id) {
         this.todoItem = getTodoItemById(id);
@@ -98,9 +99,10 @@ class TodoItemDetail {
         const dueDateSelector = document.createElement('input');
         dueDateSelector.type = 'date';
         dueDateSelector.name = 'dueDate';
-        dueDateSelector.value = this.todoItem.dueDate;
+        dueDateSelector.value = formatISO(this.todoItem.dueDate, {representation: 'date'});
         dueDateSelector.addEventListener('change', (e) => {
-            this.todoItem.dueDate = e.target.value;
+            this.todoItem.dueDate = new Date(e.target.value);
+            console.log(this.todoItem.dueDate);
             this.onItemChange();
         });
         todoItemContent.appendChild(dueDateSelector);

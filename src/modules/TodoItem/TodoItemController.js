@@ -12,7 +12,7 @@ function addTodoItem(title, priority, description, dueDate, projectId) {
     if (!Number(priority)) {
         return null;
     }
-
+    dueDate = new Date(dueDate);
     const newTodoItem = new TodoItem(newId, title, Number(priority), description, dueDate, projectId || 1);
     todoItems.push(newTodoItem);
     PubSub.publish('TodoItemsChanged');
