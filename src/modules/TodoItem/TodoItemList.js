@@ -10,7 +10,7 @@ class TodoItemList {
         }, 
         'today':{
             'callback':this.todayTodoItemsFilter,
-            'title':"'Today's Todo Items"
+            'title':"Today's Todo Items"
         },
         'upcoming':{
             'callback':this.upcomingTodoItemsFilter,
@@ -23,14 +23,15 @@ class TodoItemList {
     }
 
     todayTodoItemsFilter() {
-
+        return getTodoItems();
     }
 
     upcomingTodoItemsFilter() {
-        
-    }
+        return getTodoItems();
+    }  
 
     render(filter) {
+        console.log(filter);
         this.filter = filter;
         this.todoItems = this.filter['callback']();
 

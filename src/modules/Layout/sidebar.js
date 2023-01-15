@@ -5,9 +5,9 @@ import './sidebar.css';
 
 class Sidebar {
     mainLinks = [
-        'All items',
-        'Today',
-        'Upcoming'
+        {'title':'All items','filter':TodoItemList.filters['all']},
+        {'title':'Today','filter':TodoItemList.filters['today']},
+        {'title':'Upcoming','filter':TodoItemList.filters['upcoming']}
     ]
     render() {
         const sidebarDiv = document.createElement('div');
@@ -20,14 +20,12 @@ class Sidebar {
             mainLinkItem.className = 'sidebar-link-item';
             const mainLinkA = document.createElement('a');
             mainLinkA.href = '#';
-            mainLinkA.text = link;
+            mainLinkA.text = link['title'];
             mainLinkItem.appendChild(mainLinkA);
-            if(link === 'All items') {
-                mainLinkItem.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    publishLink('TodoItemList', TodoItemList.filters['all']);
-                })
-            }
+            mainLinkItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                publishLink('TodoItemList', link['filter']);
+            })
             
             mainLinksList.appendChild(mainLinkItem);
         }
