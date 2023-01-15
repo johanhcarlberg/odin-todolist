@@ -8,10 +8,26 @@ class TodoItemList {
             'callback':this.allTodoItemsFilter,
             'title':'All Todo Items'
         }, 
+        'today':{
+            'callback':this.todayTodoItemsFilter,
+            'title':"'Today's Todo Items"
+        },
+        'upcoming':{
+            'callback':this.upcomingTodoItemsFilter,
+            'title':'Upcoming Todo Items'
+        }
     };
 
     allTodoItemsFilter() {
         return getTodoItems();
+    }
+
+    todayTodoItemsFilter() {
+
+    }
+
+    upcomingTodoItemsFilter() {
+        
     }
 
     render(filter) {
