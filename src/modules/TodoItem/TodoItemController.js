@@ -2,7 +2,27 @@ import { TodoItem } from "./TodoItem";
 import { getNextId, getIndexFromId } from "../util";
 import PubSub from "../PubSub";
 
-const todoItems = JSON.parse(localStorage.getItem('todoItems')) || [];
+const todoItems = loadTodoItems() || [];
+
+
+function loadTodoItems() {
+    const tempTodoItems = JSON.parse(localStorage.getItem('todoItems'));
+    if (!tempTodoItems) {
+        return false;
+    }
+    const newTodoItems = tempTodoItems.map(item => {
+        const newItem = new TodoItem(
+            item.id,
+            item.title,
+            item.priority,
+            item.description,
+            new Date(item.dueDate),
+            item.projectId
+        )
+        return newItem;
+    });
+    return newTodoItems;
+}
 
 function addTodoItem(title, priority, description, dueDate, projectId) {
     const newId = getNextId(todoItems);
