@@ -3,6 +3,7 @@ import { getTodoItems, getTodoItemsToday, getTodoItemsUpcoming } from '../TodoIt
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { publishLink } from '../util';
 import './sidebar.css';
+import PubSub from '../PubSub';
 
 class Sidebar {
     mainLinks = [
@@ -21,11 +22,18 @@ class Sidebar {
             mainLinkItem.className = 'sidebar-link-item';
             const mainLinkA = document.createElement('a');
             mainLinkA.href = '#';
+
             const mainLinkText = document.createElement('span');
             mainLinkText.textContent = link['title'];
+
             const mainLinkItemNumber = document.createElement('span');
-            mainLinkItemNumber.className = 'sidebar-link-item-number';
             mainLinkItemNumber.textContent = link['callback']().filter(item => !item.isComplete).length;
+            mainLinkItemNumber.className = 'sidebar-link-item-number';
+
+            PubSub.subscribe('TodoItemsChanged', () => {
+                mainLinkItemNumber.textContent = link['callback']().filter(item => !item.isComplete).length;
+            });
+
             mainLinkA.appendChild(mainLinkText);
             mainLinkA.appendChild(mainLinkItemNumber);
             mainLinkItem.appendChild(mainLinkA);
@@ -53,11 +61,17 @@ class Sidebar {
             projectItem.className = 'sidebar-link-item';
             const projectLink = document.createElement('a');
             projectLink.href = '#';
+
             const projectLinkText = document.createElement('span');
             projectLinkText.textContent = project.name;
+
             const projectLinkItemNumber = document.createElement('span');
             projectLinkItemNumber.className = 'sidebar-link-item-number';
             projectLinkItemNumber.textContent = ProjectTodoItemMediator.getTodoItemsForProject(project.id).filter(item => !item.isComplete).length;
+            PubSub.subscribe('TodoItemsChanged', () => {
+                projectLinkItemNumber.textContent = ProjectTodoItemMediator.getTodoItemsForProject(project.id).filter(item => !item.isComplete).length;
+            });
+            
             projectLink.appendChild(projectLinkText);
             projectLink.appendChild(projectLinkItemNumber);
             projectLink.addEventListener('click', (e) => {
