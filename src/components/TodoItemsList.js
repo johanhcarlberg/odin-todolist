@@ -35,6 +35,9 @@ class TodoItemsList {
 
         for (let todoItem of this.todoItems) {
             const todoItemsListItem = document.createElement('li');
+            if (todoItem.isComplete) {
+                todoItemsListItem.classList.add('checked');
+            }
             const checkBox = new Checkbox(todoItem.isComplete, () => {
                 todoItem.isComplete = !todoItem.isComplete;
                 updateTodoItem(todoItem);

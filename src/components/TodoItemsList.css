@@ -13,6 +13,17 @@
     cursor: pointer;
 }
 
+.todo-items-list li.checked {
+    background-color: #eee;
+    color: #555;
+}
+
+.todo-items-list li.checked .checkbox{
+    background-color: #eee;
+    border: 1px solid #777;
+    fill: #777;
+}
+
 .todo-items-list li:last-child {
     border-bottom: none;
 }
@@ -26,3 +37,5 @@
     display: grid;
     grid-template-rows: 1fr 1fr;
 }
+
+
