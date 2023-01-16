@@ -19,6 +19,7 @@ function loadTodoItems() {
             item.priority,
             item.description,
             new Date(item.dueDate),
+            item.isComplete,
             item.projectId
         )
         return newItem;
