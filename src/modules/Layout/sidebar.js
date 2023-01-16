@@ -1,6 +1,6 @@
 import { getProjects } from '../Project/ProjectController';
 import { getTodoItems, getTodoItemsToday, getTodoItemsUpcoming } from '../TodoItem/TodoItemController';
-import TodoItemList from '../TodoItem/TodoItemList';
+import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { publishLink } from '../util';
 import './sidebar.css';
 
@@ -23,7 +23,11 @@ class Sidebar {
             mainLinkA.href = '#';
             const mainLinkText = document.createElement('span');
             mainLinkText.textContent = link['title'];
+            const mainLinkItemNumber = document.createElement('span');
+            mainLinkItemNumber.className = 'sidebar-link-item-number';
+            mainLinkItemNumber.textContent = link['callback']().filter(item => !item.isComplete).length;
             mainLinkA.appendChild(mainLinkText);
+            mainLinkA.appendChild(mainLinkItemNumber);
             mainLinkItem.appendChild(mainLinkA);
             mainLinkItem.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -49,7 +53,13 @@ class Sidebar {
             projectItem.className = 'sidebar-link-item';
             const projectLink = document.createElement('a');
             projectLink.href = '#';
-            projectLink.text = project.name;
+            const projectLinkText = document.createElement('span');
+            projectLinkText.textContent = project.name;
+            const projectLinkItemNumber = document.createElement('span');
+            projectLinkItemNumber.className = 'sidebar-link-item-number';
+            projectLinkItemNumber.textContent = ProjectTodoItemMediator.getTodoItemsForProject(project.id).filter(item => !item.isComplete).length;
+            projectLink.appendChild(projectLinkText);
+            projectLink.appendChild(projectLinkItemNumber);
             projectLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 publishLink('ProjectDetail', project.id);
