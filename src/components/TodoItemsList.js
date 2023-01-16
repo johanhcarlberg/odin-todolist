@@ -3,6 +3,7 @@ import { publishLink } from "../modules/util";
 import './TodoItemsList.css';
 import Checkbox from "./Checkbox";
 import formatISO from "date-fns/formatISO";
+import { isBefore } from "date-fns";
 
 class TodoItemsList {
     constructor(todoItems) {
@@ -14,14 +15,31 @@ class TodoItemsList {
             return;
         }
 
-        const todoItemsList = document.createElement('ul');
-        todoItemsList.className = 'todo-items-list';
+        this.todoItemsList = document.createElement('ul');
+        this.todoItemsList.className = 'todo-items-list';
+        this.renderListItems();
+        
+        return this.todoItemsList;
+    }
+
+    renderListItems() {
+        this.todoItems.sort((item1, item2) => {
+            if (item1.isComplete === item2.isComplete) {
+                if (isBefore(item1.dueDate, item2.dueDate)) {
+                    return 1;
+                }
+            } else if (item1.isComplete && !item2.isComplete) {
+                return 1;
+            }
+        });
 
         for (let todoItem of this.todoItems) {
             const todoItemsListItem = document.createElement('li');
             const checkBox = new Checkbox(todoItem.isComplete, () => {
                 todoItem.isComplete = !todoItem.isComplete;
                 updateTodoItem(todoItem);
+                this.todoItemsList.innerHTML = '';
+                this.renderListItems();
             });
             todoItemsListItem.appendChild(checkBox);
             const todoItemContent = document.createElement('div');
@@ -44,9 +62,8 @@ class TodoItemsList {
             });
 
             todoItemsListItem.appendChild(todoItemContent);
-            todoItemsList.appendChild(todoItemsListItem);
+            this.todoItemsList.appendChild(todoItemsListItem);
         }
-        return todoItemsList;
     }
 }
 
