@@ -1,5 +1,7 @@
 import { TodoItem } from "./TodoItem";
 import { getNextId, getIndexFromId } from "../util";
+import isFuture from "date-fns/isFuture";
+import isToday from "date-fns/isToday";
 import PubSub from "../PubSub";
 
 const todoItems = loadTodoItems() || [];

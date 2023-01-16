@@ -1,13 +1,14 @@
 import { getProjects } from '../Project/ProjectController';
+import { getTodoItems, getTodoItemsToday, getTodoItemsUpcoming } from '../TodoItem/TodoItemController';
 import TodoItemList from '../TodoItem/TodoItemList';
 import { publishLink } from '../util';
 import './sidebar.css';
 
 class Sidebar {
     mainLinks = [
-        {'title':'All items','filter':TodoItemList.filters['all']},
-        {'title':'Today','filter':TodoItemList.filters['today']},
-        {'title':'Upcoming','filter':TodoItemList.filters['upcoming']}
+        {'title':'All items','callback':getTodoItems},
+        {'title':'Today','callback':getTodoItemsToday},
+        {'title':'Upcoming','callback':getTodoItemsUpcoming}
     ]
     render() {
         const sidebarDiv = document.createElement('div');
@@ -20,11 +21,13 @@ class Sidebar {
             mainLinkItem.className = 'sidebar-link-item';
             const mainLinkA = document.createElement('a');
             mainLinkA.href = '#';
-            mainLinkA.text = link['title'];
+            const mainLinkText = document.createElement('span');
+            mainLinkText.textContent = link['title'];
+            mainLinkA.appendChild(mainLinkText);
             mainLinkItem.appendChild(mainLinkA);
             mainLinkItem.addEventListener('click', (e) => {
                 e.preventDefault();
-                publishLink('TodoItemList', link['filter']);
+                publishLink('TodoItemList', {title:link['title'], callback:link['callback']});
             })
             
             mainLinksList.appendChild(mainLinkItem);
