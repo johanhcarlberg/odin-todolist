@@ -1,4 +1,4 @@
-import { getTodoItems } from "./TodoItemController"
+import { getTodoItems, getTodoItemsToday, getTodoItemsUpcoming } from "./TodoItemController"
 import TodoItemsList from "../../components/TodoItemsList";
 import { isFuture, isToday } from "date-fns";
 
@@ -24,15 +24,11 @@ class TodoItemList {
     }
 
     todayTodoItemsFilter() {
-        return getTodoItems().filter(item => {
-            return isToday(item.dueDate);
-        });
+        return getTodoItemsToday();
     }
 
     upcomingTodoItemsFilter() {
-        return getTodoItems().filter(item => {
-            return isFuture(item.dueDate);
-        });
+        return getTodoItemsUpcoming();
     }  
 
     render(filter) {

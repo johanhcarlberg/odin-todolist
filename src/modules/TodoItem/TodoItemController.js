@@ -43,6 +43,18 @@ function getTodoItems() {
     return todoItems;
 }
 
+function getTodoItemsToday() {
+    return getTodoItems().filter(item => {
+        return isToday(item.dueDate);
+    });
+}
+
+function getTodoItemsUpcoming() {
+    return getTodoItems().filter(item => {
+        return isFuture(item.dueDate);
+    });
+}
+
 function getTodoItemById(id) {
     return todoItems.find(item => item.id === id);
 }
@@ -66,4 +78,4 @@ PubSub.subscribe('TodoItemsChanged', () => {
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
 });
 
-export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem, updateTodoItem };
+export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem, updateTodoItem, getTodoItemsToday, getTodoItemsUpcoming };
