@@ -4,12 +4,16 @@ import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { publishLink } from '../util';
 import './sidebar.css';
 import PubSub from '../PubSub';
+import SidebarLinkItem from '../../components/SidebarLinkItem';
+import allSvg from '../../../assets/icons/list-box.svg';
+import todaySvg from '../../../assets/icons/calendar-blank.svg';
+import upcomingSvg from '../../../assets/icons/calendar-clock.svg';
 
 class Sidebar {
     mainLinks = [
-        {'title':'All items','callback':getTodoItems},
-        {'title':'Today','callback':getTodoItemsToday},
-        {'title':'Upcoming','callback':getTodoItemsUpcoming}
+        {'title':'All items','callback':getTodoItems,'icon':allSvg},
+        {'title':'Today','callback':getTodoItemsToday, 'icon':todaySvg},
+        {'title':'Upcoming','callback':getTodoItemsUpcoming, 'icon':upcomingSvg}
     ]
     render() {
         const sidebarDiv = document.createElement('div');
@@ -18,30 +22,7 @@ class Sidebar {
         const mainLinksList = document.createElement('ul');
         mainLinksList.className = 'sidebar-link-list';
         for (let link of this.mainLinks) {
-            const mainLinkItem = document.createElement('li');
-            mainLinkItem.className = 'sidebar-link-item';
-            const mainLinkA = document.createElement('a');
-            mainLinkA.href = '#';
-
-            const mainLinkText = document.createElement('span');
-            mainLinkText.textContent = link['title'];
-
-            const mainLinkItemNumber = document.createElement('span');
-            mainLinkItemNumber.textContent = link['callback']().filter(item => !item.isComplete).length;
-            mainLinkItemNumber.className = 'sidebar-link-item-number';
-
-            PubSub.subscribe('TodoItemsChanged', () => {
-                mainLinkItemNumber.textContent = link['callback']().filter(item => !item.isComplete).length;
-            });
-
-            mainLinkA.appendChild(mainLinkText);
-            mainLinkA.appendChild(mainLinkItemNumber);
-            mainLinkItem.appendChild(mainLinkA);
-            mainLinkItem.addEventListener('click', (e) => {
-                e.preventDefault();
-                publishLink('TodoItemList', {title:link['title'], callback:link['callback']});
-            })
-            
+            const mainLinkItem = new SidebarLinkItem(link.title, link.callback, link.icon || null).render();
             mainLinksList.appendChild(mainLinkItem);
         }
 
@@ -57,29 +38,10 @@ class Sidebar {
         projectList.appendChild(projectListHeader);
 
         for (let project of getProjects()) {
-            const projectItem = document.createElement('li');
-            projectItem.className = 'sidebar-link-item';
-            const projectLink = document.createElement('a');
-            projectLink.href = '#';
-
-            const projectLinkText = document.createElement('span');
-            projectLinkText.textContent = project.name;
-
-            const projectLinkItemNumber = document.createElement('span');
-            projectLinkItemNumber.className = 'sidebar-link-item-number';
-            projectLinkItemNumber.textContent = ProjectTodoItemMediator.getTodoItemsForProject(project.id).filter(item => !item.isComplete).length;
-            PubSub.subscribe('TodoItemsChanged', () => {
-                projectLinkItemNumber.textContent = ProjectTodoItemMediator.getTodoItemsForProject(project.id).filter(item => !item.isComplete).length;
-            });
-            
-            projectLink.appendChild(projectLinkText);
-            projectLink.appendChild(projectLinkItemNumber);
-            projectLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                publishLink('ProjectDetail', project.id);
-            })
-            projectItem.appendChild(projectLink);
-
+            const projectItem = new SidebarLinkItem(
+                project.name, 
+                () => ProjectTodoItemMediator.getTodoItemsForProject(project.id))
+                .render();
             projectList.appendChild(projectItem);
         }
 
