@@ -45,9 +45,9 @@ function changePage(data) {
 }
 
 changePage({
-    page: "ProjectList"
+    page: "TodoItemList",
+    data: {title:'All items', callback:getTodoItems}
 });
-//changePage(TodoItemDetail, 1);
 
 
 
