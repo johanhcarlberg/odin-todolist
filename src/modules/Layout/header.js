@@ -1,3 +1,4 @@
+import AddComponent from "../../components/AddComponent";
 import PubSub from "../PubSub";
 import { publishLink } from "../util";
 import './header.css';
@@ -39,8 +40,11 @@ class Header {
         addTodoButton.textContent = "Add Todo Item";
         addTodoButton.addEventListener('click', (e) => { publishLink('AddTodoItem')});
 
+        const addComponent = new AddComponent();
+
         buttonsContainer.appendChild(addProjectButton);
         buttonsContainer.appendChild(addTodoButton);
+        buttonsContainer.appendChild(addComponent.render());
         
         header.appendChild(nav);
         header.appendChild(buttonsContainer);

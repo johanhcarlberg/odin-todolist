@@ -10,7 +10,7 @@ export default class AddComponent {
         addIcon.innerHTML = addIconSvg;
         addIcon.className = 'add-icon';
 
-        
+        addContainer.appendChild(addIcon);
 
         return addContainer;
     }
