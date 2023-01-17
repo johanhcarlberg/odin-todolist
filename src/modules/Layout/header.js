@@ -28,22 +28,9 @@ class Header {
 
         const buttonsContainer = document.createElement('div');
         buttonsContainer.classList.add('buttons-container');
-        
-
-        const addProjectButton = document.createElement('button');
-        addProjectButton.classList.add('add-project-button');
-        addProjectButton.textContent = 'Add Project';
-        addProjectButton.addEventListener('click', (e) => { publishLink('AddProject')});
-
-        const addTodoButton = document.createElement('button');
-        addTodoButton.classList.add('add-todo-button');
-        addTodoButton.textContent = "Add Todo Item";
-        addTodoButton.addEventListener('click', (e) => { publishLink('AddTodoItem')});
 
         const addComponent = new AddComponent();
-
-        buttonsContainer.appendChild(addProjectButton);
-        buttonsContainer.appendChild(addTodoButton);
+        
         buttonsContainer.appendChild(addComponent.render());
         
         header.appendChild(nav);

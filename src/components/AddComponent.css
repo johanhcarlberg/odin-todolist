@@ -1,4 +1,8 @@
 .add-container {
+    position: relative;
+}
+
+.icon-container {
     display: grid;
     grid-template-columns: 1fr min-content;
 }
@@ -10,7 +14,7 @@
     fill: #333;
 }
 
-.add-container:hover {
+.icon-container:hover {
     cursor: pointer;
 }
 
@@ -19,4 +23,36 @@
     width: 14px;
     align-self: end;
     fill: #333;
+}
+
+.add-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 25%;
+    width: max-content;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.add-dropdown-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.add-dropdown-list li {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.add-dropdown-list li:hover {
+    background-color: #eee;
+}
+
+.add-dropdown-list a {
+    text-decoration: none;
+    color: #333;
 }
