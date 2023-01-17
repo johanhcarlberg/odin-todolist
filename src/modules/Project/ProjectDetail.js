@@ -2,6 +2,7 @@ import Checkbox from "../../components/Checkbox";
 import TodoItemsList from "../../components/TodoItemsList";
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { TodoItem } from "../TodoItem/TodoItem";
+import { getTodoItems } from "../TodoItem/TodoItemController";
 import { publishLink } from "../util";
 import { deleteProject, getProjectById, getProjects } from "./ProjectController";
 import './ProjectDetail.css';
@@ -31,7 +32,7 @@ class ProjectDetail {
 
         deleteButton.addEventListener('click', (e) => {
             deleteProject(project.id);
-            publishLink('ProjectList');
+            publishLink('TodoItemList', {title:'All items', callback:getTodoItems});
         });
         projectDetailDiv.appendChild(deleteButton);
         
