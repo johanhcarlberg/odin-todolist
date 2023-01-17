@@ -20,7 +20,7 @@ function loadTodoItems() {
             item.description,
             new Date(item.dueDate),
             item.isComplete,
-            item.projectId
+            Number(item.projectId)
         )
         return newItem;
     });
@@ -36,7 +36,7 @@ function addTodoItem(title, priority, description, dueDate, projectId) {
         return null;
     }
     dueDate = new Date(dueDate);
-    const newTodoItem = new TodoItem(newId, title, Number(priority), description, dueDate, projectId || 1);
+    const newTodoItem = new TodoItem(newId, title, Number(priority), description, dueDate, false, projectId || 1);
     todoItems.push(newTodoItem);
     PubSub.publish('TodoItemsChanged');
     return newTodoItem;
