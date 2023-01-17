@@ -5,7 +5,6 @@ import { isFuture, isToday } from "date-fns";
 class TodoItemList {
 
     render({title, callback}) {
-        console.log(title, callback);
         this.todoItems = callback();
 
         const todoItemListContainer = document.createElement('div');
