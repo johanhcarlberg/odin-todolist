@@ -4,6 +4,7 @@ import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
 import { publishLink } from '../util';
 import './sidebar.css';
 import PubSub from '../PubSub';
+import SidebarLinkItem from '../../components/SidebarLinkItem';
 
 class Sidebar {
     mainLinks = [
@@ -18,30 +19,7 @@ class Sidebar {
         const mainLinksList = document.createElement('ul');
         mainLinksList.className = 'sidebar-link-list';
         for (let link of this.mainLinks) {
-            const mainLinkItem = document.createElement('li');
-            mainLinkItem.className = 'sidebar-link-item';
-            const mainLinkA = document.createElement('a');
-            mainLinkA.href = '#';
-
-            const mainLinkText = document.createElement('span');
-            mainLinkText.textContent = link['title'];
-
-            const mainLinkItemNumber = document.createElement('span');
-            mainLinkItemNumber.textContent = link['callback']().filter(item => !item.isComplete).length;
-            mainLinkItemNumber.className = 'sidebar-link-item-number';
-
-            PubSub.subscribe('TodoItemsChanged', () => {
-                mainLinkItemNumber.textContent = link['callback']().filter(item => !item.isComplete).length;
-            });
-
-            mainLinkA.appendChild(mainLinkText);
-            mainLinkA.appendChild(mainLinkItemNumber);
-            mainLinkItem.appendChild(mainLinkA);
-            mainLinkItem.addEventListener('click', (e) => {
-                e.preventDefault();
-                publishLink('TodoItemList', {title:link['title'], callback:link['callback']});
-            })
-            
+            const mainLinkItem = new SidebarLinkItem(link.title, link.callback).render();
             mainLinksList.appendChild(mainLinkItem);
         }
 
