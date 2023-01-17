@@ -3,10 +3,11 @@ import { publishLink } from "../modules/util";
 import './SidebarLinkItem.css';
 
 export default class SidebarLinkItem {
-    constructor(title, callback, icon) {
+    constructor(title, callback, icon, projectId) {
         this.title = title;
         this.callback = callback;
         this.icon = icon;
+        this.projectId = projectId;
     }
 
     render() {
@@ -37,7 +38,12 @@ export default class SidebarLinkItem {
         linkItem.appendChild(linkA);
         linkItem.addEventListener('click', (e) => {
             e.preventDefault();
-            publishLink('TodoItemList', {title:this.title, callback:this.callback});
+            if (this.projectId) {
+                publishLink('ProjectDetail', this.projectId);
+            } else {
+                publishLink('TodoItemList', {title:this.title, callback:this.callback});
+            }
+            
         })
 
         return linkItem;

@@ -40,7 +40,9 @@ class Sidebar {
         for (let project of getProjects()) {
             const projectItem = new SidebarLinkItem(
                 project.name, 
-                () => ProjectTodoItemMediator.getTodoItemsForProject(project.id))
+                () => ProjectTodoItemMediator.getTodoItemsForProject(project.id),
+                null,
+                project.id)
                 .render();
             projectList.appendChild(projectItem);
         }
