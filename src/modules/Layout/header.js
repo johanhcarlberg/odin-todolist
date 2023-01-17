@@ -9,6 +9,15 @@ class Header {
     ]
     render() {
         const header = document.createElement('header');
+        const logoContainer = document.createElement('div');
+        logoContainer.className = 'logo-container';
+
+        const logoText = document.createElement('span');
+        logoText.textContent = 'Odin Todo-List';
+        logoContainer.appendChild(logoText);
+
+        header.appendChild(logoContainer);
+        
         const nav = document.createElement('nav');
         const links = document.createElement('ul');
         links.classList.add('header-links');
