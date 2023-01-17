@@ -1,0 +1,10 @@
+.add-container {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+}
+
+.add-icon {
+    height: 18px;
+    width: 18px;
+    align-self: center;
+}
