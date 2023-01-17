@@ -1,7 +1,6 @@
 import PubSub from './modules/PubSub';
 import { addTodoItem, getTodoItemById, getTodoItems } from './modules/TodoItem/TodoItemController';
 import TodoItemDetail from './modules/TodoItem/TodoItemDetail';
-import ProjectList from './modules/Project/ProjectList';
 import Header from './modules/Layout/header';
 import Sidebar from './modules/Layout/sidebar';
 import ProjectDetail from './modules/Project/ProjectDetail';
