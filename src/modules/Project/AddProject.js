@@ -47,7 +47,7 @@ class AddProject {
             formData.get('name')
             );
         if (newProject) {
-            publishLink('ProjectList');
+            publishLink('ProjectDetail', newProject.id);
         }
         console.table(formData);
     }
