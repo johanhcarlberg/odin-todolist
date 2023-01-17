@@ -3,6 +3,7 @@ import PubSub from "../PubSub";
 import { publishLink } from "../util";
 import logoIconSvg from '../../../assets/icons/clipboard-list-outline.svg';
 import './header.css';
+import { getTodoItems } from "../TodoItem/TodoItemController";
 
 class Header {
     render() {
@@ -20,6 +21,9 @@ class Header {
         logoText.className = 'logo-text';
         logoContainer.appendChild(logoText);
 
+        logoContainer.addEventListener('click', (e) => {
+            publishLink('TodoItemList', {title:'All items', callback:getTodoItems});
+        })
         header.appendChild(logoContainer);
 
         const buttonsContainer = document.createElement('div');
