@@ -19,7 +19,6 @@ console.table(getTodoItems());
 
 const pages = {
     "TodoItemDetail": TodoItemDetail,
-    "ProjectList": ProjectList,
     "ProjectDetail":ProjectDetail,
     "AddTodoItem":AddTodoItem,
     "AddProject":AddProject,
