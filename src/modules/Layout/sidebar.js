@@ -35,29 +35,10 @@ class Sidebar {
         projectList.appendChild(projectListHeader);
 
         for (let project of getProjects()) {
-            const projectItem = document.createElement('li');
-            projectItem.className = 'sidebar-link-item';
-            const projectLink = document.createElement('a');
-            projectLink.href = '#';
-
-            const projectLinkText = document.createElement('span');
-            projectLinkText.textContent = project.name;
-
-            const projectLinkItemNumber = document.createElement('span');
-            projectLinkItemNumber.className = 'sidebar-link-item-number';
-            projectLinkItemNumber.textContent = ProjectTodoItemMediator.getTodoItemsForProject(project.id).filter(item => !item.isComplete).length;
-            PubSub.subscribe('TodoItemsChanged', () => {
-                projectLinkItemNumber.textContent = ProjectTodoItemMediator.getTodoItemsForProject(project.id).filter(item => !item.isComplete).length;
-            });
-            
-            projectLink.appendChild(projectLinkText);
-            projectLink.appendChild(projectLinkItemNumber);
-            projectLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                publishLink('ProjectDetail', project.id);
-            })
-            projectItem.appendChild(projectLink);
-
+            const projectItem = new SidebarLinkItem(
+                project.name, 
+                () => ProjectTodoItemMediator.getTodoItemsForProject(project.id))
+                .render();
             projectList.appendChild(projectItem);
         }
 
