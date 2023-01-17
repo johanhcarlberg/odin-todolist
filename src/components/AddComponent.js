@@ -1,5 +1,6 @@
 import './AddComponent.css';
 import addIconSvg from '../../assets/icons/plus.svg';
+import chevronSvg from '../../assets/icons/chevron-down.svg';
 export default class AddComponent {
     constructor() {}
     render() {
@@ -10,7 +11,12 @@ export default class AddComponent {
         addIcon.innerHTML = addIconSvg;
         addIcon.className = 'add-icon';
 
+        const chevron = document.createElement('i');
+        chevron.innerHTML = chevronSvg;
+        chevron.className = 'chevron-icon';
+
         addContainer.appendChild(addIcon);
+        addContainer.appendChild(chevron);
 
         return addContainer;
     }
