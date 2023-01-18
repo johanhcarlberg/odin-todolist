@@ -4,3 +4,13 @@
     height: 25px;
     background-color: #fff;
 }
+
+.checkbox.critical {
+    background-color: rgb(253, 246, 246);
+    border: 1px solid rgb(255, 58, 58);
+}
+
+.checkbox.important {
+    background-color: rgb(253, 250, 245);
+    border: 1px solid rgb(255, 182, 25);
+}

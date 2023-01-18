@@ -4,6 +4,7 @@ import './TodoItemsList.css';
 import Checkbox from "./Checkbox";
 import formatISO from "date-fns/formatISO";
 import { isBefore } from "date-fns";
+import { TodoItem } from "../modules/TodoItem/TodoItem";
 
 class TodoItemsList {
     constructor(todoItems) {
@@ -44,6 +45,8 @@ class TodoItemsList {
                 this.todoItemsList.innerHTML = '';
                 this.renderListItems();
             });
+            checkBox.classList.add(`${TodoItem.priorities[todoItem.priority].toLowerCase()}`);
+
             todoItemsListItem.appendChild(checkBox);
             const todoItemContent = document.createElement('div');
             todoItemContent.className = 'todo-items-list-item-content';
