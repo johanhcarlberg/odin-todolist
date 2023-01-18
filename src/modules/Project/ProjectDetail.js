@@ -18,9 +18,15 @@ class ProjectDetail {
         const projectDetailHeader = document.createElement('h2');
         projectDetailHeader.textContent = project.name || 'Project Details';
         projectDetailDiv.appendChild(projectDetailHeader);
-
-        const todoItemsList = new TodoItemsList(todoItems);
-        projectDetailDiv.appendChild(todoItemsList.render());
+        
+        if (todoItems.length === 0) {
+            const emptyTodoItemsText = document.createElement('p');
+            emptyTodoItemsText.textContent = 'There are currently no items in this project.';
+            projectDetailDiv.appendChild(emptyTodoItemsText);
+        } else {
+            const todoItemsList = new TodoItemsList(todoItems);
+            projectDetailDiv.appendChild(todoItemsList.render());
+        }
         
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete Project';
