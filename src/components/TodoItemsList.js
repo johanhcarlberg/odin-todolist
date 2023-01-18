@@ -25,11 +25,22 @@ class TodoItemsList {
 
     renderListItems() {
         this.todoItems.sort((item1, item2) => {
-            if (item1.isComplete === item2.isComplete) {
+            /* Sorts based on checked status. If the item isn't checked, sorts
+            by priority then date. If the item is checked, sorts only by date */
+            if (item1.isComplete === item2.isComplete && item1.isComplete === false) {
+                if (item1.priority === item2.priority) {
+                    if (isBefore(item1.dueDate, item2.dueDate)) {
+                        return 1;
+                    }
+                } else {
+                    return item1.priority - item2.priority;
+                }
+            } else if (item1.isComplete === item2.isComplete && item1.isComplete === true) {
                 if (isBefore(item1.dueDate, item2.dueDate)) {
                     return 1;
                 }
-            } else if (item1.isComplete && !item2.isComplete) {
+            }
+            else if (item1.isComplete && !item2.isComplete) {
                 return 1;
             }
         });
