@@ -1,7 +1,6 @@
 import { getProjects } from '../Project/ProjectController';
 import { getTodoItems, getTodoItemsToday, getTodoItemsUpcoming } from '../TodoItem/TodoItemController';
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
-import { publishLink } from '../util';
 import './sidebar.css';
 import PubSub from '../PubSub';
 import SidebarLinkItem from '../../components/SidebarLinkItem';

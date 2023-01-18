@@ -107,8 +107,6 @@ class AddTodoItem {
         );
         if (newTodoItem) {
             form.reset();
-        } else {
-            console.log('Error when creating new todo item');
         }
     }
 }

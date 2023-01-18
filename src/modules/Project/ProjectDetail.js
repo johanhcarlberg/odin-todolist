@@ -1,7 +1,5 @@
-import Checkbox from "../../components/Checkbox";
 import TodoItemsList from "../../components/TodoItemsList";
 import ProjectTodoItemMediator from "../ProjectTodoItemMediator";
-import { TodoItem } from "../TodoItem/TodoItem";
 import { getTodoItems } from "../TodoItem/TodoItemController";
 import { publishLink } from "../util";
 import { deleteProject, getProjectById, getProjects } from "./ProjectController";

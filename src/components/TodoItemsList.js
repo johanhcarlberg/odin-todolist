@@ -71,7 +71,6 @@ class TodoItemsList {
             todoItemContent.appendChild(todoItemDueDate);
 
             todoItemsListItem.addEventListener('click', (e) => {
-                console.log(e.target);
                 if (e.target === todoItemsListItem || todoItemContent.contains(e.target)) {
                     publishLink('TodoItemDetail', todoItem.id);
                 }

@@ -49,7 +49,6 @@ class AddProject {
         if (newProject) {
             publishLink('ProjectDetail', newProject.id);
         }
-        console.table(formData);
     }
 }
 

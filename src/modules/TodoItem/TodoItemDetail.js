@@ -102,7 +102,6 @@ class TodoItemDetail {
         dueDateSelector.value = formatISO(this.todoItem.dueDate, {representation: 'date'});
         dueDateSelector.addEventListener('change', (e) => {
             this.todoItem.dueDate = new Date(e.target.value);
-            console.log(this.todoItem.dueDate);
             this.onItemChange();
         });
         todoItemContent.appendChild(dueDateSelector);
