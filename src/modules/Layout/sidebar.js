@@ -28,6 +28,19 @@ class Sidebar {
 
         const projectList = document.createElement('ul');
         projectList.className = 'sidebar-link-list'
+        this.createProjectList(projectList);
+
+        PubSub.subscribe('ProjectChanged', () => {
+            projectList.innerHTML = '';
+            this.createProjectList(projectList);
+        })
+
+        sidebarDiv.appendChild(mainLinksList);
+        sidebarDiv.appendChild(projectList);
+        return sidebarDiv;
+    }
+
+    createProjectList(projectList) {
 
         const projectListHeader = document.createElement('li');
         projectListHeader.classList.add('sidebar-link-list-header', 'sidebar-link-item');
@@ -37,6 +50,10 @@ class Sidebar {
         projectListHeader.appendChild(projectListHeaderLink);
         projectList.appendChild(projectListHeader);
 
+        this.addProjectLinks(projectList);
+    }
+
+    addProjectLinks(parent) {
         for (let project of getProjects()) {
             const projectItem = new SidebarLinkItem(
                 project.name, 
@@ -44,12 +61,8 @@ class Sidebar {
                 null,
                 project.id)
                 .render();
-            projectList.appendChild(projectItem);
+                parent.appendChild(projectItem);
         }
-
-        sidebarDiv.appendChild(mainLinksList);
-        sidebarDiv.appendChild(projectList);
-        return sidebarDiv;
     }
 }
 
