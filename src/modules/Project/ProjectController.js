@@ -1,21 +1,18 @@
-import { Project } from "./Project";
+import ProjectFactory from "./Project";
 import { getNextId, getIndexFromId } from "../util";
 import PubSub from "../PubSub";
+import * as ProjectRepository from "./ProjectRepository";
 
-const projects = JSON.parse(localStorage.getItem('projects')) || [];
-if (projects.length === 0) {
-    addProject('Default');
-}
 
-function addProject(name) {
-    const newId = getNextId(projects);
-    const newProject = new Project(newId, name);
-    projects.push(newProject);
+const addProject = async (name) => {
+    const newProject = ProjectFactory(name);
+    await ProjectRepository.addProject(newProject);
     PubSub.publish('ProjectChanged');
     return newProject;
 }
 
-function getProjects() {
+const getProjects = async () => {
+    const projects = await ProjectRepository.getProjects();
     return projects;
 }
 
@@ -31,5 +28,16 @@ function deleteProject(id) {
 PubSub.subscribe('ProjectChanged', () => {
     localStorage.setItem('projects', JSON.stringify(projects));
 });
+
+const addDefaultProject = async () => {
+    const projects = await getProjects();
+    console.log(projects);
+    if (projects.length === 0) {
+        addProject('Default');
+    }
+};
+
+addDefaultProject();
+
 
 export { addProject, getProjects, getProjectById, deleteProject }

@@ -1,5 +1,19 @@
-const ProjectFactory = (name) => {
-    return {name};
+export class Project {
+    constructor(name) {
+        this.name = name;
+    }
+
+
 }
 
-export default ProjectFactory;
+export const ProjectConverter = {
+        toFirestore: (project) => {
+            return {
+                name: project.name
+            };
+        },
+        fromFirestore: (snapshot, options) => {
+            const data = snapshot.data(options);
+            return new Project(data.name);
+        }
+};
