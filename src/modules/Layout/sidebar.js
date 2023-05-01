@@ -52,8 +52,9 @@ class Sidebar {
         this.addProjectLinks(projectList);
     }
 
-    addProjectLinks(parent) {
-        for (let project of getProjects()) {
+    async addProjectLinks(parent) {
+        const projects = await getProjects();
+        for (let project of projects) {
             const projectItem = new SidebarLinkItem(
                 project.name, 
                 () => ProjectTodoItemMediator.getTodoItemsForProject(project.id),
