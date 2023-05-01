@@ -16,13 +16,13 @@ const getProjects = async () => {
     return projects;
 }
 
-function getProjectById(id) {
-    return projects.find(project => project.id === id);
+const getProjectById = async (id) => {
+    const project = await ProjectRepository.getProjectById(id);
+    return project;
 }
 
-function deleteProject(id) {
-    projects.splice(getIndexFromId(projects, id), 1);
-    PubSub.publish('ProjectChanged');
+const deleteProject = async (id) => {
+    await ProjectRepository.deleteProject(id);
 }
 
 PubSub.subscribe('ProjectChanged', () => {
