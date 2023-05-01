@@ -1,17 +1,21 @@
 import { initializeApp } from "firebase/app";
+import firebaseConfig from '../../../firebase_config';
 import { addDoc, deleteDoc, getFirestore } from "firebase/firestore";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, query } from "firebase/firestore";
+import { Project, ProjectConverter } from "./Project";
 
-
+console.log(firebaseConfig);
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
 export const getProjects = async () => {
     try {
-        const projects = await getDocs(collection(db, 'projects'));
-        return projects;
+        let q = query(collection(db, 'projects')).withConverter(ProjectConverter);
+        const projects = await getDocs(q);
+        return projects.docs.map(doc => doc.data());
     } catch (error) {
         console.error('Error when retrieving projects from database', error);
     }
@@ -19,11 +23,11 @@ export const getProjects = async () => {
 
 export const getProjectById = async (id) => {
     try {
-        const projectRef = doc(db, 'projects', id);
+        const projectRef = doc(db, 'projects', id).withConverter(ProjectConverter);
         const projectSnap = await getDoc(projectRef);
 
         if(projectSnap.exists()) {
-            return projectSnap;
+            return projectSnap.data();
         } else {
             return null;
         }
