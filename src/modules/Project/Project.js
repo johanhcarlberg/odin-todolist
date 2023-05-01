@@ -1,5 +1,6 @@
 export class Project {
-    constructor(name) {
+    constructor(id, name) {
+        this.id = id || '';
         this.name = name;
     }
 
@@ -14,6 +15,6 @@ export const ProjectConverter = {
         },
         fromFirestore: (snapshot, options) => {
             const data = snapshot.data(options);
-            return new Project(data.name);
+            return new Project(snapshot.id, data.name);
         }
 };
