@@ -7,12 +7,12 @@ import PubSub from "../PubSub";
 import Checkbox from "../../components/Checkbox";
 import formatISO from 'date-fns/formatISO'
 class TodoItemDetail {
-    render(id) {
-        this.todoItem = getTodoItemById(id);
+    async render(id) {
+        this.todoItem = await getTodoItemById(id);
         if (!this.todoItem) {
             return;
         }
-        const project = getProjectById(this.todoItem.projectId);
+        const project = await getProjectById(this.todoItem.projectId);
         const todoItemDiv = document.createElement('div');
         todoItemDiv.classList.add('todo-item-container');
 
@@ -37,7 +37,8 @@ class TodoItemDetail {
 
         const projectSelect = document.createElement('select');
         projectSelect.name = 'project';
-        for (let project of getProjects())
+        const projects = await getProjects();
+        for (let project of projects)
         {
             const projectOption = document.createElement('option');
             projectOption.name = 'project';
@@ -108,9 +109,9 @@ class TodoItemDetail {
 
         const isCompleteSpan = document.createElement('span');
         isCompleteSpan.textContent = 'Is completed';
-        const isCompleteCheckbox = new Checkbox(this.todoItem.isComplete, () => {
+        const isCompleteCheckbox = new Checkbox(this.todoItem.isComplete, async () => {
             this.todoItem.isComplete = !this.todoItem.isComplete;
-            this.onItemChange();
+            await this.onItemChange();
         })
         todoItemContent.appendChild(isCompleteSpan);
         todoItemContent.appendChild(isCompleteCheckbox);
@@ -118,8 +119,8 @@ class TodoItemDetail {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete-todoitem-button');
-        deleteButton.addEventListener('click', (e) => {
-            deleteTodoItem(this.todoItem.id);
+        deleteButton.addEventListener('click', async (e) => {
+            await deleteTodoItem(this.todoItem.id);
             PubSub.publish('changePage', {page: 'ProjectDetail', data: project.id});
         });
         todoItemContent.appendChild(deleteButton);
@@ -131,8 +132,8 @@ class TodoItemDetail {
         return todoItemDiv;
     }
 
-    onItemChange() {
-        updateTodoItem(this.todoItem);
+    async onItemChange() {
+        await updateTodoItem(this.todoItem);
         publishLink('TodoItemDetail', this.todoItem.id);
     }
 }
