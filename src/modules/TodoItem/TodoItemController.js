@@ -3,82 +3,43 @@ import { getNextId, getIndexFromId } from "../util";
 import isFuture from "date-fns/isFuture";
 import isToday from "date-fns/isToday";
 import PubSub from "../PubSub";
+import TodoItemRepositoryLocal from "./TodoItemRepositoryLocal";
 
-const todoItems = loadTodoItems() || [];
+const repository = TodoItemRepositoryLocal;
 
-
-function loadTodoItems() {
-    const tempTodoItems = JSON.parse(localStorage.getItem('todoItems'));
-    if (!tempTodoItems) {
-        return false;
-    }
-    const newTodoItems = tempTodoItems.map(item => {
-        const newItem = new TodoItem(
-            item.id,
-            item.title,
-            item.priority,
-            item.description,
-            new Date(item.dueDate),
-            item.isComplete,
-            Number(item.projectId)
-        )
-        return newItem;
-    });
-    return newTodoItems;
-}
-
-function addTodoItem(title, priority, description, dueDate, projectId) {
-    const newId = getNextId(todoItems);
-    if (!title || !priority || !description || !dueDate) {
-        return null;
-    }
-    if (!Number(priority)) {
-        return null;
-    }
-    dueDate = new Date(dueDate);
-    const newTodoItem = new TodoItem(newId, title, Number(priority), description, dueDate, false, projectId || 1);
-    todoItems.push(newTodoItem);
-    PubSub.publish('TodoItemsChanged');
+async function addTodoItem(title, priority, description, dueDate, projectId) {
+    const newTodoItem = await repository.addTodoItem(title, priority, description, dueDate, projectId);
     return newTodoItem;
 }
 
-function getTodoItems() {
-    return todoItems;
+async function getTodoItems() {
+    return await repository.getTodoItems();
 }
 
-function getTodoItemsToday() {
-    return getTodoItems().filter(item => {
+async function getTodoItemsToday() {
+    const items = await repository.getTodoItems();
+    return items.filter(item => {
         return isToday(item.dueDate);
     });
 }
 
-function getTodoItemsUpcoming() {
-    return getTodoItems().filter(item => {
+async function getTodoItemsUpcoming() {
+    const items = await repository.getTodoItems();
+    return items.filter(item => {
         return isFuture(item.dueDate);
     });
 }
 
-function getTodoItemById(id) {
-    return todoItems.find(item => item.id === id);
+async function getTodoItemById(id) {
+    return await repository.getTodoItemById(id);
 }
 
-function deleteTodoItem(id) {
-    todoItems.splice(getIndexFromId(todoItems, id), 1);
-    PubSub.publish('TodoItemsChanged');
+async function deleteTodoItem(id) {
+    await repository.deleteTodoItem(id);
 }
 
-function updateTodoItem(item) {
-    const oldItem = getTodoItemById(item.id);
-    if (!oldItem) {
-        return;
-    }
-
-    todoItems[getIndexFromId(todoItems, item.id)] = item;
-    PubSub.publish('TodoItemsChanged');
+async function updateTodoItem(item) {
+    await repository.updateTodoItem(item);
 }
-
-PubSub.subscribe('TodoItemsChanged', () => {
-    localStorage.setItem('todoItems', JSON.stringify(todoItems));
-});
 
 export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem, updateTodoItem, getTodoItemsToday, getTodoItemsUpcoming };
