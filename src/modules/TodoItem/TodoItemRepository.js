@@ -57,8 +57,9 @@ const TodoItemRepository = (() => {
     }
 
     async function deleteTodoItem(id) {
+        console.log(id);
         try {
-            await deleteDoc(db, `users/${auth.currentUser.uid}/todoItems`, id);
+            await deleteDoc(doc(db, `users/${auth.currentUser.uid}/todoItems`, id));
         } catch(error) {
             console.error('Error when deleting todoItem with id ' + id, error);
         }
