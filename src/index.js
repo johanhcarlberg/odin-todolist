@@ -10,8 +10,12 @@ import TodoItemList from './modules/TodoItem/TodoItemList';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../firebase_config';
 import './style.css';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
 
-(async () => {
+const init = async () => {
+    
+
     if (getTodoItems().length === 0) {
         addTodoItem("Test", 3, "Test Description", "2022-12-29");
         addTodoItem("Test2", 3, "Test Description 2", "2022-12-30");
@@ -48,9 +52,12 @@ import './style.css';
         page: "TodoItemList",
         data: {title:'All items', callback:getTodoItems}
     });
-    
-    const app = initializeApp(firebaseConfig);
-})()
+}
+
+initializeApp(firebaseConfig);
+auth.onAuthStateChanged(user => {
+    init();
+})
 
 
 
