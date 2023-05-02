@@ -103,7 +103,7 @@ class AddTodoItem {
             formData.get('priority'),
             formData.get('description'), 
             formData.get('dueDate'),
-            Number(formData.get('project'))
+            formData.get('project')
         );
         if (newTodoItem) {
             form.reset();
