@@ -14,8 +14,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
 const init = async () => {
-    
-
     if (getTodoItems().length === 0) {
         addTodoItem("Test", 3, "Test Description", "2022-12-29");
         addTodoItem("Test2", 3, "Test Description 2", "2022-12-30");
@@ -54,10 +52,14 @@ const init = async () => {
     });
 }
 
+let isLoaded = false;
 initializeApp(firebaseConfig);
 auth.onAuthStateChanged(user => {
-    init();
-})
+    if (isLoaded === false) {
+        init();
+        isLoaded = true;
+    }
+});
 
 
 
