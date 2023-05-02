@@ -10,7 +10,7 @@ export default class SidebarLinkItem {
         this.projectId = projectId;
     }
 
-    render() {
+    async render() {
         const linkItem = document.createElement('li');
         linkItem.className = 'sidebar-link-item';
 
@@ -28,10 +28,12 @@ export default class SidebarLinkItem {
 
         const linkItemNumber = document.createElement('span');
         linkItemNumber.className = 'sidebar-link-item-number';
-        linkItemNumber.textContent = this.callback().filter(item => !item.isComplete).length;
+        const items = await this.callback();
+        linkItemNumber.textContent = items.filter(item => !item.isComplete).length;
 
-        PubSub.subscribe('TodoItemsChanged', () => {
-            linkItemNumber.textContent = this.callback().filter(item => !item.isComplete).length;
+        PubSub.subscribe('TodoItemsChanged', async () => {
+            const items = await this.callback();
+            linkItemNumber.textContent = items.filter(item => !item.isComplete).length;
         });
 
         linkA.append(linkText, linkItemNumber);
