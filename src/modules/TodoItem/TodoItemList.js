@@ -1,9 +1,8 @@
 import TodoItemsList from "../../components/TodoItemsList";
 
 class TodoItemList {
-
-    render({title, callback}) {
-        this.todoItems = callback();
+    async render({title, callback}) {
+        this.todoItems = await callback();
 
         const todoItemListContainer = document.createElement('div');
         const todoItemListHeader = document.createElement('h2');
