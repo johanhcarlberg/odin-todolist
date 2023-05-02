@@ -1,11 +1,11 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import './SignInButton.css';
+import { auth } from '../firebase';
 
 const SignInButton = (() => {
     const provider = new GoogleAuthProvider();
 
     const onSignInButtonClicked = async (e) => {
-        const auth = getAuth();
         try {
             const signInResult = await signInWithPopup(auth, provider);
         } catch(error) {

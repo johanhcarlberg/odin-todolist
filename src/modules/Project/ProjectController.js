@@ -4,8 +4,9 @@ import { getNextId, getIndexFromId } from "../util";
 import PubSub from "../PubSub";
 import ProjectRepository from "./ProjectRepository";
 import ProjectRepositoryLocal from "./ProjectRepositoryLocal";
+import { auth } from "../../firebase";
 
-    let repository = getAuth().currentUser ? ProjectRepository : ProjectRepositoryLocal;
+    let repository = auth.currentUser ? ProjectRepository : ProjectRepositoryLocal;
 
     export const addProject = async (name) => {
         const newProject = new Project('', name);
@@ -38,7 +39,7 @@ import ProjectRepositoryLocal from "./ProjectRepositoryLocal";
     
     addDefaultProject();
 
-    onAuthStateChanged(getAuth(), (user) => {
+    onAuthStateChanged(auth, (user) => {
         repository = user ? ProjectRepository : ProjectRepositoryLocal;
         addDefaultProject();
         PubSub.publish('ProjectChanged');

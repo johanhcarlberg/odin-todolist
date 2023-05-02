@@ -1,10 +1,10 @@
 import { getAuth, signOut } from 'firebase/auth';
 import './SignOutButton.css';
+import { auth } from '../firebase';
 
 const SignOutButton = (() => {
 
     const onSignOutButtonClicked = async (e) => {
-        const auth = getAuth();
         try {
             const signOutResult = await signOut(auth);
         } catch(error) {
