@@ -28,7 +28,8 @@ import './style.css';
     PubSub.subscribe('changePage', changePage);
     
     document.body.appendChild(Header.render());
-    document.body.appendChild(Sidebar.render());
+    const sidebar = await Sidebar.render();
+    document.body.appendChild(sidebar);
     const mainContent = document.createElement('div');
     mainContent.classList.add('main-content');
     document.body.appendChild(mainContent);

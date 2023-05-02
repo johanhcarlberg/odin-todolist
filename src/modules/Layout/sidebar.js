@@ -14,14 +14,14 @@ class Sidebar {
         {'title':'Today','callback':getTodoItemsToday, 'icon':todaySvg},
         {'title':'Upcoming','callback':getTodoItemsUpcoming, 'icon':upcomingSvg}
     ]
-    render() {
+    async render() {
         const sidebarDiv = document.createElement('div');
         sidebarDiv.className = 'sidebar';
 
         const mainLinksList = document.createElement('ul');
         mainLinksList.className = 'sidebar-link-list';
         for (let link of this.mainLinks) {
-            const mainLinkItem = new SidebarLinkItem(link.title, link.callback, link.icon || null).render();
+            const mainLinkItem = await new SidebarLinkItem(link.title, link.callback, link.icon || null).render();
             mainLinksList.appendChild(mainLinkItem);
         }
 
@@ -54,8 +54,9 @@ class Sidebar {
 
     async addProjectLinks(parent) {
         const projects = await getProjects();
+        console.log(projects);
         for (let project of projects) {
-            const projectItem = new SidebarLinkItem(
+            const projectItem = await new SidebarLinkItem(
                 project.name, 
                 () => ProjectTodoItemMediator.getTodoItemsForProject(project.id),
                 null,
