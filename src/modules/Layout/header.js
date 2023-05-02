@@ -42,7 +42,6 @@ class Header {
 
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
-            console.log('onAuthStateChanged');
             userContainer.innerHTML = '';
             if (user) {
                 userContainer.textContent = user.displayName;
