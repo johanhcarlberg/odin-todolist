@@ -55,6 +55,7 @@ class Header {
 
         if (auth.currentUser) {
             userContainer.textContent = auth.currentUser.displayName;
+            const signOutButton = SignOutButton().render();
             userContainer.appendChild(signOutButton);
         } else {
             const signInButton = SignInButton().render();
