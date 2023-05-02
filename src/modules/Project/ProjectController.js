@@ -1,32 +1,32 @@
-import ProjectFactory from "./Project";
+import { Project } from "./Project";
 import { getNextId, getIndexFromId } from "../util";
 import PubSub from "../PubSub";
 import ProjectRepository from "./ProjectRepository";
+import ProjectRepositoryLocal from "./ProjectRepositoryLocal";
+
+const repository = ProjectRepositoryLocal;
 
 const addProject = async (name) => {
-    const newProject = ProjectFactory(name);
-    await ProjectRepository.addProject(newProject);
+    const newProject = new Project('', name);
+    const addedProject = await repository.addProject(newProject);
     PubSub.publish('ProjectChanged');
-    return newProject;
+    return addedProject;
 }
 
 const getProjects = async () => {
-    const projects = await ProjectRepository.getProjects();
+    const projects = await repository.getProjects();
     return projects;
 }
 
 const getProjectById = async (id) => {
-    const project = await ProjectRepository.getProjectById(id);
+    const project = await repository.getProjectById(id);
     return project;
 }
 
 const deleteProject = async (id) => {
-    await ProjectRepository.deleteProject(id);
+    await repository.deleteProject(id);
+    PubSub.publish('ProjectChanged');
 }
-
-PubSub.subscribe('ProjectChanged', () => {
-    localStorage.setItem('projects', JSON.stringify(projects));
-});
 
 const addDefaultProject = async () => {
     const projects = await getProjects();
