@@ -2,7 +2,7 @@ import { publishLink } from "../util";
 import { addProject } from "./ProjectController";
 
 class AddProject {
-    render() {
+    async render() {
         const addProjectContainer = document.createElement('div');
 
         const header = document.createElement('h2');
@@ -33,7 +33,7 @@ class AddProject {
         return addProjectContainer;
     }
 
-    onFormSubmit(e) {
+    async onFormSubmit(e) {
         e.preventDefault();
         const form = e.target;
         if (!form.checkValidity()) {
@@ -43,7 +43,7 @@ class AddProject {
 
         const formData = new FormData(form);
 
-        const newProject = addProject(
+        const newProject = await addProject(
             formData.get('name')
             );
         if (newProject) {
