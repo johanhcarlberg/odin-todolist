@@ -1,8 +1,9 @@
 import { getTodoItems } from "./TodoItem/TodoItemController";
 
 class ProjectTodoItemMediator {
-    getTodoItemsForProject(projectId) {
-        return getTodoItems().filter(item => item.projectId === projectId);
+    async getTodoItemsForProject(projectId) {
+        const todoItems = await getTodoItems();
+        return todoItems.filter(item => item.projectId === projectId);
     }
 }
 
