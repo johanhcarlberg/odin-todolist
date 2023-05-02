@@ -4,10 +4,14 @@ import isFuture from "date-fns/isFuture";
 import isToday from "date-fns/isToday";
 import PubSub from "../PubSub";
 import TodoItemRepositoryLocal from "./TodoItemRepositoryLocal";
+import TodoItemRepository from "./TodoItemRepository";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../firebase";
 
-const repository = TodoItemRepositoryLocal;
+let repository = auth.currentUser ? TodoItemRepository : TodoItemRepositoryLocal;
 
 async function addTodoItem(title, priority, description, dueDate, projectId) {
+    console.log(title, priority, description, dueDate, projectId)
     const newTodoItem = await repository.addTodoItem(title, priority, description, dueDate, projectId);
     return newTodoItem;
 }
@@ -41,5 +45,10 @@ async function deleteTodoItem(id) {
 async function updateTodoItem(item) {
     await repository.updateTodoItem(item);
 }
+
+onAuthStateChanged(getAuth(), (user) => {
+    repository = user ? TodoItemRepository : TodoItemRepositoryLocal;
+    PubSub.publish('TodoItemsChanged');
+})
 
 export { addTodoItem, getTodoItems, getTodoItemById, deleteTodoItem, updateTodoItem, getTodoItemsToday, getTodoItemsUpcoming };
