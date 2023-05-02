@@ -6,9 +6,9 @@ import { deleteProject, getProjectById, getProjects } from "./ProjectController"
 import './ProjectDetail.css';
 
 class ProjectDetail {
-    render(id) {
-        const project = getProjectById(id);
-        const todoItems = ProjectTodoItemMediator.getTodoItemsForProject(project.id);
+    async render(id) {
+        const project = await getProjectById(id);
+        const todoItems = await ProjectTodoItemMediator.getTodoItemsForProject(project.id);
 
         const projectDetailDiv = document.createElement('div');
         projectDetailDiv.classList.add('project-detail');
@@ -30,12 +30,12 @@ class ProjectDetail {
         deleteButton.textContent = 'Delete Project';
         deleteButton.classList.add('delete-project-button');
 
-        if (project.name === 'Default' || getProjects().length <= 1) {
+        if (project.name === 'Default' || await getProjects().length <= 1) {
             deleteButton.disabled = true;
         }
 
-        deleteButton.addEventListener('click', (e) => {
-            deleteProject(project.id);
+        deleteButton.addEventListener('click', async (e) => {
+            await deleteProject(project.id);
             publishLink('TodoItemList', {title:'All items', callback:getTodoItems});
         });
         projectDetailDiv.appendChild(deleteButton);
