@@ -4,8 +4,8 @@ import { TodoItem } from "./TodoItem";
 import { addTodoItem } from "./TodoItemController";
 
 class AddTodoItem {
-    render() {
-        const projects = getProjects();
+    async render() {
+        const projects = await getProjects();
 
         const addTodoItemContainer = document.createElement('div');
 
@@ -89,7 +89,7 @@ class AddTodoItem {
         return addTodoItemContainer;
     }
 
-    onFormSubmit(e) {
+    async onFormSubmit(e) {
         e.preventDefault();
         const form = e.target;
         if(!form.checkValidity()) {
@@ -98,7 +98,7 @@ class AddTodoItem {
         }
 
         let formData = new FormData(form);
-        const newTodoItem = addTodoItem(
+        const newTodoItem = await addTodoItem(
             formData.get('title'), 
             formData.get('priority'),
             formData.get('description'), 
