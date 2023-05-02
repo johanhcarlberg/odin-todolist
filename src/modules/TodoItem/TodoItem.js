@@ -1,6 +1,6 @@
 export class TodoItem {
     constructor(id, title, priority, description, dueDate, isComplete, projectId) {
-        this.id = id;
+        this.id = id || '';
         this.title = title;
         this.priority = priority,
         this.description = description;
@@ -13,5 +13,22 @@ export class TodoItem {
         1: "Critical",
         2: "Important",
         3: "Default"
+    }
+}
+
+export const todoItemConverter = {
+    toFirestore: (todoItem) => {
+        return {
+            title: todoItem.title,
+            priority: todoItem.priority,
+            description: todoItem.description,
+            dueDate: todoItem.dueDate,
+            isComplete: todoItem.isComplete,
+            projectId: todoItem.projectId
+        };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new TodoItem(snapshot.id, data.title, data.priority, data.description, data.dueDate, data.isComplete, data.projectId);
     }
 }
