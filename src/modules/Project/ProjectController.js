@@ -1,8 +1,7 @@
 import ProjectFactory from "./Project";
 import { getNextId, getIndexFromId } from "../util";
 import PubSub from "../PubSub";
-import * as ProjectRepository from "./ProjectRepository";
-
+import ProjectRepository from "./ProjectRepository";
 
 const addProject = async (name) => {
     const newProject = ProjectFactory(name);

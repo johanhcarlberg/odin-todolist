@@ -11,45 +11,55 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-export const getProjects = async () => {
-    try {
-        let q = query(collection(db, 'projects')).withConverter(ProjectConverter);
-        const projects = await getDocs(q);
-        return projects.docs.map(doc => doc.data());
-    } catch (error) {
-        console.error('Error when retrieving projects from database', error);
-    }
-}
-
-export const getProjectById = async (id) => {
-    try {
-        const projectRef = doc(db, 'projects', id).withConverter(ProjectConverter);
-        const projectSnap = await getDoc(projectRef);
-
-        if(projectSnap.exists()) {
-            return projectSnap.data();
-        } else {
-            return null;
+const ProjectRepository = (() => {
+    const getProjects = async () => {
+        try {
+            let q = query(collection(db, 'projects')).withConverter(ProjectConverter);
+            const projects = await getDocs(q);
+            return projects.docs.map(doc => doc.data());
+        } catch (error) {
+            console.error('Error when retrieving projects from database', error);
         }
-    } catch (error) {
-        console.error(`Error when retrieving project with id ${id}`, error);
     }
-} 
 
-export const addProject = async (project) => {
-    try {
-        const projectRef = await addDoc(collection(db, 'projects'), project);
-        return projectRef;
-    } catch (error) {
-        console.error(`Error when adding project ${{...project}}`, error);
+    const getProjectById = async (id) => {
+        try {
+            const projectRef = doc(db, 'projects', id).withConverter(ProjectConverter);
+            const projectSnap = await getDoc(projectRef);
+    
+            if(projectSnap.exists()) {
+                return projectSnap.data();
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error(`Error when retrieving project with id ${id}`, error);
+        }
+    } 
+    
+    const addProject = async (project) => {
+        try {
+            const projectRef = await addDoc(collection(db, 'projects'), project);
+            return projectRef;
+        } catch (error) {
+            console.error(`Error when adding project ${{...project}}`, error);
+        }
     }
-}
 
-export const deleteProject = async (projectId) => {
-    try {
-        await deleteDoc(doc(db, 'projects', projectId));
-    } catch (error) {
-        console.error(`Error when deleting project with id ${projectId}`, error);
+    const deleteProject = async (projectId) => {
+        try {
+            await deleteDoc(doc(db, 'projects', projectId));
+        } catch (error) {
+            console.error(`Error when deleting project with id ${projectId}`, error);
+        }
     }
-}
+    
+    return {
+        getProjects,
+        getProjectById,
+        addProject,
+        deleteProject
+    }
+})();
 
+export default ProjectRepository;
