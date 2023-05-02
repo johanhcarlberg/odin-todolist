@@ -6,6 +6,7 @@ import './TodoItemDetail.css';
 import PubSub from "../PubSub";
 import Checkbox from "../../components/Checkbox";
 import formatISO from 'date-fns/formatISO'
+import { auth } from "../../firebase";
 class TodoItemDetail {
     async render(id) {
         this.todoItem = await getTodoItemById(id);
@@ -50,7 +51,7 @@ class TodoItemDetail {
             }
         }
         projectSelect.addEventListener('change', (e) => {
-            this.todoItem.projectId = Number(e.target.value);
+            this.todoItem.projectId = auth.currentUser ? e.target.value : Number(e.target.value);
             this.onItemChange();
         })
         todoItemContent.appendChild(projectSelect);

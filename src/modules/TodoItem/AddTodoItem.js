@@ -1,3 +1,4 @@
+import { auth } from "../../firebase";
 import { getProjects } from "../Project/ProjectController";
 import './AddTodoItem.css';
 import { TodoItem } from "./TodoItem";
@@ -103,7 +104,7 @@ class AddTodoItem {
             formData.get('priority'),
             formData.get('description'), 
             formData.get('dueDate'),
-            formData.get('project')
+            auth.currentUser ? formData.get('project') : Number(formData.get('project'))
         );
         if (newTodoItem) {
             form.reset();
