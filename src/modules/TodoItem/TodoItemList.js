@@ -12,10 +12,6 @@ class TodoItemList {
             this.todoItemListContainer.innerHTML = '';
             this.renderItemsList(title);
         })
-
-        
-        
-
         return this.todoItemListContainer;
     }
 
